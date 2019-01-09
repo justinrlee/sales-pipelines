@@ -36,9 +36,9 @@
         "lastModifiedBy": "justin.lee@armory.io",
         "limitConcurrent": true,
         "stages": [{
-                "account": "dev-demo-0-dev",
+                "account": "sales-dev",
                 "cloudProvider": "kubernetes",
-                "manifestArtifactAccount": "justinrlee-demo-0-github",
+                "manifestArtifactAccount": "github_justinrlee_sales",
                 "manifests": [{
                         "apiVersion": "extensions/v1beta1",
                         "kind": "Deployment",
@@ -49,7 +49,7 @@
                                 "stack": "frontend"
                             },
                             "name": "spinnaker-demo",
-                            "namespace": "demo-0-dev"
+                            "namespace": "sales-dev"
                         },
                         "spec": {
                             "replicas": "${ #toInt( parameters.devcount ) }",
@@ -89,7 +89,7 @@
                         "kind": "Service",
                         "metadata": {
                             "name": "spinnaker-demo",
-                            "namespace": "demo-0-dev"
+                            "namespace": "sales-dev"
                         },
                         "spec": {
                             "ports": [{
@@ -120,9 +120,9 @@
             },
             {{ module "manual.judgment.module" "refId" "2" "requisiteStageRefIds" ["1"] }},
             {
-                "account": "dev-demo-0-prod",
+                "account": "sales-prod",
                 "cloudProvider": "kubernetes",
-                "manifestArtifactAccount": "justinrlee-demo-0-github",
+                "manifestArtifactAccount": "github_justinrlee_sales",
                 "manifests": [{
                         "apiVersion": "extensions/v1beta1",
                         "kind": "Deployment",
@@ -133,7 +133,7 @@
                                 "stack": "frontend"
                             },
                             "name": "spinnaker-demo",
-                            "namespace": "demo-0-prod"
+                            "namespace": "sales-prod"
                         },
                         "spec": {
                             "replicas": "${ #toInt( parameters.prodcount ) }",
@@ -173,7 +173,7 @@
                         "kind": "Service",
                         "metadata": {
                             "name": "spinnaker-demo",
-                            "namespace": "demo-0-prod"
+                            "namespace": "sales-prod"
                         },
                         "spec": {
                             "ports": [{
@@ -216,12 +216,12 @@
         "expectedArtifacts": [
             {{ module "artifact.github.module"
                "id" "2e665801-3134-48d5-8347-86ea81f60226"
-               "repo" "justinrlee/demo-0-pipelines"
+               "repo" "justinrlee/sales-pipelines"
                "path" "demo/manifests/dev-justinrleenginx.yml"
             }},
             {{ module "artifact.github.module"
                "id" "f898396e-54f0-4428-82d1-29bf05f428a5"
-               "repo" "justinrlee/demo-0-pipelines"
+               "repo" "justinrlee/sales-pipelines"
                "path" "demo/manifests/prod-justinrleenginx.yml"
             }}
         ],
@@ -256,9 +256,9 @@
         "limitConcurrent": true,
         "stages": [
             {
-            "account": "dev-demo-0-dev",
+            "account": "sales-dev",
             "cloudProvider": "kubernetes",
-            "manifestArtifactAccount": "justinrlee-demo-0-github",
+            "manifestArtifactAccount": "github_justinrlee_sales",
             "manifestArtifactId": "2e665801-3134-48d5-8347-86ea81f60226",
             "manifests": [
                 {
@@ -271,7 +271,7 @@
                     "stack": "frontend"
                     },
                     "name": "spinnaker-demo",
-                    "namespace": "demo-0-dev"
+                    "namespace": "sales-dev"
                 },
                 "spec": {
                     "replicas": "${ #toInt( parameters.devcount ) }",
@@ -315,7 +315,7 @@
                 "kind": "Service",
                 "metadata": {
                     "name": "spinnaker-demo",
-                    "namespace": "demo-0-dev"
+                    "namespace": "sales-dev"
                 },
                 "spec": {
                     "ports": [
@@ -348,9 +348,9 @@
             },
             {{ module "manual.judgment.module" "refId" "2" "requisiteStageRefIds" ["1"] }},
             {
-            "account": "dev-demo-0-prod",
+            "account": "sales-prod",
             "cloudProvider": "kubernetes",
-            "manifestArtifactAccount": "justinrlee-demo-0-github",
+            "manifestArtifactAccount": "github_justinrlee_sales",
             "manifestArtifactId": "f898396e-54f0-4428-82d1-29bf05f428a5",
             "manifests": [
                 {
@@ -363,7 +363,7 @@
                     "stack": "frontend"
                     },
                     "name": "spinnaker-demo",
-                    "namespace": "demo-0-prod"
+                    "namespace": "sales-prod"
                 },
                 "spec": {
                     "replicas": "${ #toInt( parameters.prodcount ) }",
@@ -407,7 +407,7 @@
                 "kind": "Service",
                 "metadata": {
                     "name": "spinnaker-demo",
-                    "namespace": "demo-0-prod"
+                    "namespace": "sales-prod"
                 },
                 "spec": {
                     "ports": [
@@ -479,9 +479,9 @@
         "lastModifiedBy": "justin.lee@armory.io",
         "limitConcurrent": true,
         "stages": [{
-                "account": "dev-demo-0-dev",
+                "account": "sales-dev",
                 "cloudProvider": "kubernetes",
-                "manifestArtifactAccount": "justinrlee-demo-0-github",
+                "manifestArtifactAccount": "github_justinrlee_sales",
                 "manifests": [{
                         "apiVersion": "extensions/v1beta1",
                         "kind": "Deployment",
@@ -492,7 +492,7 @@
                                 "stack": "frontend"
                             },
                             "name": "spinnaker-demo",
-                            "namespace": "demo-0-dev"
+                            "namespace": "sales-dev"
                         },
                         "spec": {
                             "replicas": "${ #toInt( parameters.devcount ) }",
@@ -532,7 +532,7 @@
                         "kind": "Service",
                         "metadata": {
                             "name": "spinnaker-demo",
-                            "namespace": "demo-0-dev"
+                            "namespace": "sales-dev"
                         },
                         "spec": {
                             "ports": [{
@@ -563,9 +563,9 @@
             },
             {{ module "manual.judgment.module" "refId" "2" "requisiteStageRefIds" ["1"] }},
             {
-                "account": "dev-demo-0-prod",
+                "account": "sales-prod",
                 "cloudProvider": "kubernetes",
-                "manifestArtifactAccount": "justinrlee-demo-0-github",
+                "manifestArtifactAccount": "github_justinrlee_sales",
                 "manifests": [{
                         "apiVersion": "extensions/v1beta1",
                         "kind": "Deployment",
@@ -576,7 +576,7 @@
                                 "stack": "frontend"
                             },
                             "name": "spinnaker-demo",
-                            "namespace": "demo-0-prod"
+                            "namespace": "sales-prod"
                         },
                         "spec": {
                             "replicas": "${ #toInt( parameters.prodcount ) }",
@@ -616,7 +616,7 @@
                         "kind": "Service",
                         "metadata": {
                             "name": "spinnaker-demo",
-                            "namespace": "demo-0-prod"
+                            "namespace": "sales-prod"
                         },
                         "spec": {
                             "ports": [{
@@ -686,9 +686,9 @@
         "lastModifiedBy": "justin.lee@armory.io",
         "limitConcurrent": true,
         "stages": [{
-                "account": "dev-demo-0-dev",
+                "account": "sales-dev",
                 "cloudProvider": "kubernetes",
-                "manifestArtifactAccount": "justinrlee-demo-0-github",
+                "manifestArtifactAccount": "github_justinrlee_sales",
                 "manifests": [{
                         "apiVersion": "extensions/v1beta1",
                         "kind": "Deployment",
@@ -699,7 +699,7 @@
                                 "stack": "frontend"
                             },
                             "name": "spinnaker-demo",
-                            "namespace": "demo-0-dev"
+                            "namespace": "sales-dev"
                         },
                         "spec": {
                             "replicas": "${ #toInt( parameters.devcount ) }",
@@ -739,7 +739,7 @@
                         "kind": "Service",
                         "metadata": {
                             "name": "spinnaker-demo",
-                            "namespace": "demo-0-dev"
+                            "namespace": "sales-dev"
                         },
                         "spec": {
                             "ports": [{
@@ -781,9 +781,9 @@
                 "type": "manualJudgment"
             },
             {
-                "account": "dev-demo-0-prod",
+                "account": "sales-prod",
                 "cloudProvider": "kubernetes",
-                "manifestArtifactAccount": "justinrlee-demo-0-github",
+                "manifestArtifactAccount": "github_justinrlee_sales",
                 "manifests": [{
                         "apiVersion": "extensions/v1beta1",
                         "kind": "Deployment",
@@ -794,7 +794,7 @@
                                 "stack": "frontend"
                             },
                             "name": "spinnaker-demo",
-                            "namespace": "demo-0-prod"
+                            "namespace": "sales-prod"
                         },
                         "spec": {
                             "replicas": "${ #toInt( parameters.prodcount ) }",
@@ -834,7 +834,7 @@
                         "kind": "Service",
                         "metadata": {
                             "name": "spinnaker-demo",
-                            "namespace": "demo-0-prod"
+                            "namespace": "sales-prod"
                         },
                         "spec": {
                             "ports": [{
