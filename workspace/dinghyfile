@@ -1,0 +1,53 @@
+{
+    "application": "kubernetesdemo",
+    "pipelines": [
+      {
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justinrlee",
+        "limitConcurrent": true,
+        "stages": [
+          {
+            "baseLabel": "release",
+            "baseOs": "ubuntu",
+            "cloudProviderType": "aws",
+            "expectedArtifacts": [
+              {
+                "defaultArtifact": {},
+                "id": "a2832d16-20be-4407-912c-e5595adc3568",
+                "matchArtifact": {
+                  "kind": "base64",
+                  "name": "",
+                  "type": "embedded/base64"
+                },
+                "useDefaultArtifact": false
+              }
+            ],
+            "extendedAttributes": {},
+            "inputArtifacts": [
+              {
+                "account": "",
+                "id": ""
+              }
+            ],
+            "name": "Bake (Manifest)",
+            "namespace": "sales-dev",
+            "outputName": "test",
+            "overrides": {
+              "blah": "blah",
+              "test2": "${#stage[\"something\"]}"
+            },
+            "refId": "1",
+            "regions": [],
+            "requisiteStageRefIds": [],
+            "storeType": "ebs",
+            "templateRenderer": "HELM2",
+            "type": "bakeManifest",
+            "user": "justinrlee",
+            "vmType": "hvm"
+          }
+        ],
+        "triggers": [],
+        "updateTs": "1547763185000"
+      }
+    ]
+}
