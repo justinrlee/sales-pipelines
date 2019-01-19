@@ -1,8 +1,7 @@
 {
-    "application": "workspace",
     "pipelines": [
     {
-        "application": "kubernetesdemo",
+        "application": "workspace",
         "name": "Test 1",
         "appConfig": {},
         "description": "This is managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
