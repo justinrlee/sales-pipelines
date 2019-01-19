@@ -15,7 +15,14 @@
         "lastModifiedBy": "justin.lee@armory.io",
         "limitConcurrent": true,
         "stages": [
-            {{  module "stage.wait.module" }}
+
+            {
+                "name": "Wait",
+                "refId": "1",
+                "requisiteStageRefIds": [],
+                "type": "wait",
+                "waitTime": 30
+            }
         ],
         "triggers": [],
         "updateTs": "1531235846933"
