@@ -8,7 +8,7 @@
         "application": "workspace",
         "name": "Dinghy Global Variable Test",
         "appConfig": {},
-        "description": "{{ var "waitname" ?: "wait no" }}",
+        "description": "now now {{ var "waitname" ?: "wait no" }}",
         "parameterConfig": [
         ],
         "keepWaitingPipelines": false,
