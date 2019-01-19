@@ -1,4 +1,5 @@
 {
+        "application": "workspace",
         "globals": {
             "waitname": "Waitttt"
         },
