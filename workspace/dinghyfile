@@ -1,10 +1,10 @@
 {
-    "pipelines": [
-    {
-        "application": "workspace",
         "globals": {
             "waitname": "Waitttt"
         },
+    "pipelines": [
+    {
+        "application": "workspace",
         "name": "Dinghy Global Variable Test",
         "appConfig": {},
         "description": "Testing global variables in modules 6",
