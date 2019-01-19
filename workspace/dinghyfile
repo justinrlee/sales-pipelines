@@ -1,5 +1,5 @@
 {
-    "application": "kubernetesdemo",
+    "application": "workspace",
     "pipelines": [
     {
         "application": "kubernetesdemo",
