@@ -2,6 +2,9 @@
     "pipelines": [
     {
         "application": "workspace",
+        "globals": {
+            "waitname": "Waitttt"
+        }
         "name": "Dinghy Global Variable Test",
         "appConfig": {},
         "description": "Testing global variables in modules 6",
