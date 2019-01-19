@@ -15,6 +15,7 @@
         "lastModifiedBy": "justin.lee@armory.io",
         "limitConcurrent": true,
         "stages": [
+            {{  module "stage.wait.module" }}
         ],
         "triggers": [],
         "updateTs": "1531235846933"
