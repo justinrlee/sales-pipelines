@@ -4,11 +4,7 @@
         "application": "workspace",
         "name": "Dinghy Global Variable Test",
         "appConfig": {},
-        "description": "Testing global variables in modules 2",
-        "locked": {
-            "allowUnlockUi": false,
-            "ui": "true"
-        },
+        "description": "Testing global variables in modules 3",
         "parameterConfig": [
         ],
         "keepWaitingPipelines": false,
