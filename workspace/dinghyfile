@@ -4,6 +4,7 @@
         "application": "mkdocs-dinghy",
         "vaultAuthPath": "k8s-mgmt",
         "vaultPath": "/mkdocs/mkdocs",
+        "namespace": "${trigger[\\\"properties\\\"][\\\"k8sNamespace\\\"]}",
         "vaultRole": "vaulter-mkdocs"
     },
     "pipelines": [
