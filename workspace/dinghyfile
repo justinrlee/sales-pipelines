@@ -5,7 +5,18 @@
         "vaultAuthPath": "k8s-mgmt",
         "vaultPath": "/mkdocs/mkdocs",
         "namespace": "${trigger[\\\"properties\\\"][\\\"k8sNamespace\\\"]}",
-        "vaultRole": "vaulter-mkdocs"
+        "vaultRole": "vaulter-mkdocs",
+        "judgmentInputs": [
+            {
+                "value": "Approved"
+            },
+            {
+                "value": "Denied due to Canary Analysis"
+            },
+            {
+                "value": "Held for Investigation"
+            }
+        ]
     },
     "pipelines": [
     {
