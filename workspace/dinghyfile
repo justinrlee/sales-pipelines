@@ -1,8 +1,8 @@
 {
-        "application": "workspace",
-        "globals": {
-            "waitname": "Waitttttt"
-        },
+    "application": "workspace",
+    "globals": {
+        "waitname": "Waitttttt"
+    },
     "pipelines": [
     {
         "application": "workspace",
@@ -19,6 +19,18 @@
         ],
         "triggers": [],
         "updateTs": "1531235846933"
+    },
+    {
+        "application": "workspace",
+        "name": "dinghy-global-2",
+        "description": "test",
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justin.lee@armory.io",
+        "limitConcurrent": true,
+        "stages": [
+            {{ module "stage.webhook.module" }}
+        ],
+        "triggers": []
     }
     ]
 }
