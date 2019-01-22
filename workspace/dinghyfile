@@ -28,7 +28,10 @@
         "lastModifiedBy": "justin.lee@armory.io",
         "limitConcurrent": true,
         "stages": [
-            {{ module "stage.webhook.module" }}
+            {{ 
+                module "stage.webhook.module"
+                "canaryDeployEnabled" true
+            }}
         ],
         "triggers": []
     }
