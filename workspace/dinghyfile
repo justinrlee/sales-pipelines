@@ -27,7 +27,7 @@
     {
         "application": "workspace",
         "name": "dinghy-global-2",
-        "description": "2",
+        "description": "3",
         "keepWaitingPipelines": false,
         "lastModifiedBy": "justin.lee@armory.io",
         "limitConcurrent": true,
