@@ -49,20 +49,6 @@
             }}
         ],
         "triggers": []
-    },
-    {
-        "application": "workspace",
-        "name": "dinghy-global-3",
-        "description": "b",
-        "keepWaitingPipelines": false,
-        "lastModifiedBy": "justin.lee@armory.io",
-        "limitConcurrent": true,
-        "stages": [
-            {{ 
-                module "stage.manual.judgment.loop.module"
-            }}
-        ],
-        "triggers": []
     }
     ]
 }
