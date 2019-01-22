@@ -1,7 +1,11 @@
 {
     "application": "workspace",
     "globals": {
-        "waitname": "Waitttttt"
+        "application": "mkdocs-dinghy",
+        "namespace": "${trigger[\\"properties\\"][\\"k8sNamespace\\"]}",
+        "vaultAuthPath": "k8s-mgmt",
+        "vaultPath": "/mkdocs/mkdocs",
+        "vaultRole": "vaulter-mkdocs"
     },
     "pipelines": [
     {
