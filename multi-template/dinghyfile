@@ -48,25 +48,14 @@
         "lastModifiedBy": "justin.lee@armory.io",
         "limitConcurrent": true,
         "stages": [
-            {
-            "account": "sales-dev",
-            "cloudProvider": "kubernetes",
-            "manifestArtifactAccount": "github_justinrlee_sales",
-            "manifestArtifactId": "2e665801-3134-48d5-8347-86ea81f60226-t",
-            "manifests": null,
-            "moniker": {
-                "app": "multi-template"
-            },
-            "name": "Deploy Dev",
-            "refId": "1",
-            "relationships": {
-                "loadBalancers": [],
-                "securityGroups": []
-            },
-            "requisiteStageRefIds": [],
-            "source": "artifact",
-            "type": "deployManifest"
-            },
+            {{ module "stage.manifest.from.artifact"
+               "name" "Deploy Dev"
+               "account" "sales-dev"
+               "artifactId" "f898396e-54f0-4428-82d1-29bf05f428a5-t"
+               "moniker" "multi-template"
+               "refId" "1"
+               "requisiteStageRefIds" []
+            }},
             {{ module "manual.judgment.module" "refId" "2" "requisiteStageRefIds" ["1"] }},
             {{ module "stage.manifest.from.artifact"
                "name" "Deploy Prod"
