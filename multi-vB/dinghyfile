@@ -1,0 +1,80 @@
+{
+    "application": "multi-template",
+    "pipelines": [
+    {
+        "application": "multi-template",
+        "name": "Two Stage - v1",
+        "appConfig": {},
+        "description": "This is managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
+        "expectedArtifacts": [
+            {{ module "artifact.github.module"
+               "id" "multi-template-dev"
+               "repo" "justinrlee/sales-pipelines"
+               "path" "multi-template/manifests/dev.yml"
+            }},
+            {{ module "artifact.github.module"
+               "id" "multi-template-prod"
+               "repo" "justinrlee/sales-pipelines"
+               "path" "multi-template/manifests/prod.yml"
+            }}
+        ],
+        "locked": {
+            "allowUnlockUi": false,
+            "ui": "true"
+        },
+        "parameterConfig": [{
+                "default": "2",
+                "description": "How many dev instances would you like?",
+                "label": "Dev Instance Count",
+                "name": "devcount",
+                "required": true
+            },
+            {
+                "default": "4",
+                "description": "How many prod instances would you like?",
+                "label": "Prod Instance Count",
+                "name": "prodcount",
+                "required": true
+            },
+            {
+                "default": "world",
+                "description": "What Docker image tag (for justinrlee/nginx) should we use?",
+                "label": "Docker Tag",
+                "name": "tag",
+                "required": true
+            },
+            {
+              "default": "template",
+              "description": "How should we identify this app?",
+              "label": "Application Name",
+              "name": "appName",
+              "required": true
+            }
+        ],
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justin.lee@armory.io",
+        "limitConcurrent": true,
+        "stages": [
+            {{ module "stage.manifest.from.artifact"
+               "name" "Deploy Dev"
+               "account" "sales-dev"
+               "artifactId" "multi-template-dev"
+               "moniker" "multi-template"
+               "refId" "1"
+               "requisiteStageRefIds" []
+            }},
+            {{ module "manual.judgment.module" "refId" "2" "requisiteStageRefIds" ["1"] }},
+            {{ module "stage.manifest.from.artifact"
+               "name" "Deploy Prod"
+               "account" "sales-prod"
+               "artifactId" "multi-template-prod"
+               "moniker" "multi-template"
+               "refId" "3"
+               "requisiteStageRefIds" ["2"]
+            }}
+        ],
+        "triggers": [],
+        "updateTs": "1531235846933"
+    }
+    ]
+}
