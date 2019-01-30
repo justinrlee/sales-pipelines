@@ -55,7 +55,7 @@
             "manifestArtifactId": "2e665801-3134-48d5-8347-86ea81f60226-t",
             "manifests": null,
             "moniker": {
-                "app": "kubernetesdemo"
+                "app": "multi-template"
             },
             "name": "Deploy Dev",
             "refId": "1",
