@@ -10,12 +10,12 @@
             {{ module "artifact.github.module"
                "id" "multi-template-dev"
                "repo" "justinrlee/sales-pipelines"
-               "path" "demo/manifests/dev-justinrleenginx.yml"
+               "path" "multi-template/manifests/dev.yml"
             }},
             {{ module "artifact.github.module"
                "id" "multi-template-prod"
                "repo" "justinrlee/sales-pipelines"
-               "path" "demo/manifests/prod-justinrleenginx.yml"
+               "path" "multi-template/manifests/prod.yml"
             }}
         ],
         "locked": {
