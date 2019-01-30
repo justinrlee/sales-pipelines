@@ -59,7 +59,7 @@
                "name" "Deploy Dev"
                "account" "sales-dev"
                "artifactId" "multi-many-a-dev"
-               "moniker" "multi-many-a"
+               "moniker" "multi-many"
                "refId" "1"
                "requisiteStageRefIds" []
             }},
@@ -68,7 +68,7 @@
                "name" "Deploy Prod"
                "account" "sales-prod"
                "artifactId" "multi-many-a-prod"
-               "moniker" "multi-many-a"
+               "moniker" "multi-many"
                "refId" "3"
                "requisiteStageRefIds" ["2"]
             }}
@@ -134,7 +134,7 @@
                "name" "Deploy Dev"
                "account" "sales-dev"
                "artifactId" "multi-many-b-dev"
-               "moniker" "multi-many-b"
+               "moniker" "multi-many"
                "refId" "1"
                "requisiteStageRefIds" []
             }},
@@ -143,7 +143,7 @@
                "name" "Deploy Prod"
                "account" "sales-prod"
                "artifactId" "multi-many-b-prod"
-               "moniker" "multi-many-b"
+               "moniker" "multi-many"
                "refId" "3"
                "requisiteStageRefIds" ["2"]
             }}
@@ -209,7 +209,7 @@
                "name" "Deploy Dev"
                "account" "sales-dev"
                "artifactId" "multi-many-c-dev"
-               "moniker" "multi-many-c"
+               "moniker" "multi-many"
                "refId" "1"
                "requisiteStageRefIds" []
             }},
@@ -218,7 +218,7 @@
                "name" "Deploy Prod"
                "account" "sales-prod"
                "artifactId" "multi-many-c-prod"
-               "moniker" "multi-many-c"
+               "moniker" "multi-many"
                "refId" "3"
                "requisiteStageRefIds" ["2"]
             }}
