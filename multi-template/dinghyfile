@@ -7,12 +7,12 @@
         "appConfig": {},
         "description": "This is managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
         "expectedArtifacts": [
-            {{ appModule "artifact.github.module"
+            {{ module "artifact.github.module"
                "id" "2e665801-3134-48d5-8347-86ea81f60226-t"
                "repo" "justinrlee/sales-pipelines"
                "path" "demo/manifests/dev-justinrleenginx.yml"
             }},
-            {{ appModule "artifact.github.module"
+            {{ module "artifact.github.module"
                "id" "f898396e-54f0-4428-82d1-29bf05f428a5-t"
                "repo" "justinrlee/sales-pipelines"
                "path" "demo/manifests/prod-justinrleenginx.yml"
@@ -68,6 +68,14 @@
             "type": "deployManifest"
             },
             {{ module "manual.judgment.module" "refId" "2" "requisiteStageRefIds" ["1"] }},
+            {{ module "stage.manifest.from.artifact"
+               "name" "Deploy Prod T"
+               "account" "sales-prod"
+               "artifactId" "f898396e-54f0-4428-82d1-29bf05f428a5-t"
+               "moniker" "multi-template"
+               "refId" "4"
+               "requisiteStageRefIds" ["2"]
+            }},
             {
             "account": "sales-prod",
             "cloudProvider": "kubernetes",
