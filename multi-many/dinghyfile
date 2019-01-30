@@ -1,0 +1,230 @@
+{
+    "application": "multi-many",
+    "pipelines": [
+    {
+        "application": "multi-many-a",
+        "name": "Two Stage - A",
+        "appConfig": {},
+        "description": "This is managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
+        "expectedArtifacts": [
+            {{ module "artifact.github.module"
+               "id" "multi-many-a-dev"
+               "repo" "justinrlee/sales-pipelines"
+               "path" "multi-many-a/manifests/dev.yml"
+            }},
+            {{ module "artifact.github.module"
+               "id" "multi-many-a-prod"
+               "repo" "justinrlee/sales-pipelines"
+               "path" "multi-many-a/manifests/prod.yml"
+            }}
+        ],
+        "locked": {
+            "allowUnlockUi": false,
+            "ui": "true"
+        },
+        "parameterConfig": [{
+                "default": "2",
+                "description": "How many dev instances would you like?",
+                "label": "Dev Instance Count",
+                "name": "devcount",
+                "required": true
+            },
+            {
+                "default": "4",
+                "description": "How many prod instances would you like?",
+                "label": "Prod Instance Count",
+                "name": "prodcount",
+                "required": true
+            },
+            {
+                "default": "world",
+                "description": "What Docker image tag (for justinrlee/nginx) should we use?",
+                "label": "Docker Tag",
+                "name": "tag",
+                "required": true
+            },
+            {
+              "default": "many-a",
+              "description": "How should we identify this app?",
+              "label": "Application Name",
+              "name": "appName",
+              "required": true
+            }
+        ],
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justin.lee@armory.io",
+        "limitConcurrent": true,
+        "stages": [
+            {{ module "stage.manifest.from.artifact"
+               "name" "Deploy Dev"
+               "account" "sales-dev"
+               "artifactId" "multi-many-a-dev"
+               "moniker" "multi-many-a"
+               "refId" "1"
+               "requisiteStageRefIds" []
+            }},
+            {{ module "manual.judgment.module" "refId" "2" "requisiteStageRefIds" ["1"] }},
+            {{ module "stage.manifest.from.artifact"
+               "name" "Deploy Prod"
+               "account" "sales-prod"
+               "artifactId" "multi-many-a-prod"
+               "moniker" "multi-many-a"
+               "refId" "3"
+               "requisiteStageRefIds" ["2"]
+            }}
+        ],
+        "triggers": [],
+        "updateTs": "1531235846933"
+    },
+    {
+        "application": "multi-many-b",
+        "name": "Two Stage - B",
+        "appConfig": {},
+        "description": "This is managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
+        "expectedArtifacts": [
+            {{ module "artifact.github.module"
+               "id" "multi-many-b-dev"
+               "repo" "justinrlee/sales-pipelines"
+               "path" "multi-many-b/manifests/dev.yml"
+            }},
+            {{ module "artifact.github.module"
+               "id" "multi-many-b-prod"
+               "repo" "justinrlee/sales-pipelines"
+               "path" "multi-many-b/manifests/prod.yml"
+            }}
+        ],
+        "locked": {
+            "allowUnlockUi": false,
+            "ui": "true"
+        },
+        "parameterConfig": [{
+                "default": "2",
+                "description": "How many dev instances would you like?",
+                "label": "Dev Instance Count",
+                "name": "devcount",
+                "required": true
+            },
+            {
+                "default": "4",
+                "description": "How many prod instances would you like?",
+                "label": "Prod Instance Count",
+                "name": "prodcount",
+                "required": true
+            },
+            {
+                "default": "world",
+                "description": "What Docker image tag (for justinrlee/nginx) should we use?",
+                "label": "Docker Tag",
+                "name": "tag",
+                "required": true
+            },
+            {
+              "default": "many-b",
+              "description": "How should we identify this app?",
+              "label": "Application Name",
+              "name": "appName",
+              "required": true
+            }
+        ],
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justin.lee@armory.io",
+        "limitConcurrent": true,
+        "stages": [
+            {{ module "stage.manifest.from.artifact"
+               "name" "Deploy Dev"
+               "account" "sales-dev"
+               "artifactId" "multi-many-b-dev"
+               "moniker" "multi-many-b"
+               "refId" "1"
+               "requisiteStageRefIds" []
+            }},
+            {{ module "manual.judgment.module" "refId" "2" "requisiteStageRefIds" ["1"] }},
+            {{ module "stage.manifest.from.artifact"
+               "name" "Deploy Prod"
+               "account" "sales-prod"
+               "artifactId" "multi-many-b-prod"
+               "moniker" "multi-many-b"
+               "refId" "3"
+               "requisiteStageRefIds" ["2"]
+            }}
+        ],
+        "triggers": [],
+        "updateTs": "1531235846933"
+    },
+    {
+        "application": "multi-many-c",
+        "name": "Two Stage - C",
+        "appConfig": {},
+        "description": "This is managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
+        "expectedArtifacts": [
+            {{ module "artifact.github.module"
+               "id" "multi-many-c-dev"
+               "repo" "justinrlee/sales-pipelines"
+               "path" "multi-many-c/manifests/dev.yml"
+            }},
+            {{ module "artifact.github.module"
+               "id" "multi-many-c-prod"
+               "repo" "justinrlee/sales-pipelines"
+               "path" "multi-many-c/manifests/prod.yml"
+            }}
+        ],
+        "locked": {
+            "allowUnlockUi": false,
+            "ui": "true"
+        },
+        "parameterConfig": [{
+                "default": "2",
+                "description": "How many dev instances would you like?",
+                "label": "Dev Instance Count",
+                "name": "devcount",
+                "required": true
+            },
+            {
+                "default": "4",
+                "description": "How many prod instances would you like?",
+                "label": "Prod Instance Count",
+                "name": "prodcount",
+                "required": true
+            },
+            {
+                "default": "world",
+                "description": "What Docker image tag (for justinrlee/nginx) should we use?",
+                "label": "Docker Tag",
+                "name": "tag",
+                "required": true
+            },
+            {
+              "default": "many-c",
+              "description": "How should we identify this app?",
+              "label": "Application Name",
+              "name": "appName",
+              "required": true
+            }
+        ],
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justin.lee@armory.io",
+        "limitConcurrent": true,
+        "stages": [
+            {{ module "stage.manifest.from.artifact"
+               "name" "Deploy Dev"
+               "account" "sales-dev"
+               "artifactId" "multi-many-c-dev"
+               "moniker" "multi-many-c"
+               "refId" "1"
+               "requisiteStageRefIds" []
+            }},
+            {{ module "manual.judgment.module" "refId" "2" "requisiteStageRefIds" ["1"] }},
+            {{ module "stage.manifest.from.artifact"
+               "name" "Deploy Prod"
+               "account" "sales-prod"
+               "artifactId" "multi-many-c-prod"
+               "moniker" "multi-many-c"
+               "refId" "3"
+               "requisiteStageRefIds" ["2"]
+            }}
+        ],
+        "triggers": [],
+        "updateTs": "1531235846933"
+    }
+    ]
+}
