@@ -10,12 +10,12 @@
             {{ module "artifact.github.module"
                "id" "multi-many-a-dev"
                "repo" "justinrlee/sales-pipelines"
-               "path" "multi-many-a/manifests/dev.yml"
+               "path" "multi-template/manifests/dev.yml"
             }},
             {{ module "artifact.github.module"
                "id" "multi-many-a-prod"
                "repo" "justinrlee/sales-pipelines"
-               "path" "multi-many-a/manifests/prod.yml"
+               "path" "multi-template/manifests/prod.yml"
             }}
         ],
         "locked": {
@@ -85,12 +85,12 @@
             {{ module "artifact.github.module"
                "id" "multi-many-b-dev"
                "repo" "justinrlee/sales-pipelines"
-               "path" "multi-many-b/manifests/dev.yml"
+               "path" "multi-template/manifests/dev.yml"
             }},
             {{ module "artifact.github.module"
                "id" "multi-many-b-prod"
                "repo" "justinrlee/sales-pipelines"
-               "path" "multi-many-b/manifests/prod.yml"
+               "path" "multi-template/manifests/prod.yml"
             }}
         ],
         "locked": {
@@ -160,12 +160,12 @@
             {{ module "artifact.github.module"
                "id" "multi-many-c-dev"
                "repo" "justinrlee/sales-pipelines"
-               "path" "multi-many-c/manifests/dev.yml"
+               "path" "multi-template/manifests/dev.yml"
             }},
             {{ module "artifact.github.module"
                "id" "multi-many-c-prod"
                "repo" "justinrlee/sales-pipelines"
-               "path" "multi-many-c/manifests/prod.yml"
+               "path" "multi-template/manifests/prod.yml"
             }}
         ],
         "locked": {
