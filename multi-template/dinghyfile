@@ -42,6 +42,13 @@
                 "label": "Docker Tag",
                 "name": "tag",
                 "required": true
+            },
+            {
+              "default": "template",
+              "description": "How should we identify this app?",
+              "label": "Application Name",
+              "name": "appName",
+              "required": true
             }
         ],
         "keepWaitingPipelines": false,
