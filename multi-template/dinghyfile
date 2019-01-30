@@ -69,34 +69,13 @@
             },
             {{ module "manual.judgment.module" "refId" "2" "requisiteStageRefIds" ["1"] }},
             {{ module "stage.manifest.from.artifact"
-               "name" "Deploy Prod T"
+               "name" "Deploy Prod"
                "account" "sales-prod"
                "artifactId" "f898396e-54f0-4428-82d1-29bf05f428a5-t"
                "moniker" "multi-template"
-               "refId" "4"
+               "refId" "3"
                "requisiteStageRefIds" ["2"]
-            }},
-            {
-            "account": "sales-prod",
-            "cloudProvider": "kubernetes",
-            "manifestArtifactAccount": "github_justinrlee_sales",
-            "manifestArtifactId": "f898396e-54f0-4428-82d1-29bf05f428a5-t",
-            "manifests": null,
-            "moniker": {
-                "app": "multi-template"
-            },
-            "name": "Deploy Prod",
-            "refId": "3",
-            "relationships": {
-                "loadBalancers": [],
-                "securityGroups": []
-            },
-            "requisiteStageRefIds": [
-                "2"
-            ],
-            "source": "artifact",
-            "type": "deployManifest"
-            }
+            }}
         ],
         "triggers": [],
         "updateTs": "1531235846933"
