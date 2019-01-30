@@ -2,7 +2,7 @@
     "application": "multi-many",
     "pipelines": [
     {
-        "application": "multi-many-a",
+        "application": "multi-many",
         "name": "Two Stage - A",
         "appConfig": {},
         "description": "This is managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
@@ -77,7 +77,7 @@
         "updateTs": "1531235846933"
     },
     {
-        "application": "multi-many-b",
+        "application": "multi-many",
         "name": "Two Stage - B",
         "appConfig": {},
         "description": "This is managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
@@ -152,7 +152,7 @@
         "updateTs": "1531235846933"
     },
     {
-        "application": "multi-many-c",
+        "application": "multi-many",
         "name": "Two Stage - C",
         "appConfig": {},
         "description": "This is managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
