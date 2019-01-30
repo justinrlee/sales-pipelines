@@ -8,12 +8,12 @@
         "description": "This is managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
         "expectedArtifacts": [
             {{ module "artifact.github.module"
-               "id" "2e665801-3134-48d5-8347-86ea81f60226-t"
+               "id" "multi-template-dev"
                "repo" "justinrlee/sales-pipelines"
                "path" "demo/manifests/dev-justinrleenginx.yml"
             }},
             {{ module "artifact.github.module"
-               "id" "f898396e-54f0-4428-82d1-29bf05f428a5-t"
+               "id" "multi-template-prod"
                "repo" "justinrlee/sales-pipelines"
                "path" "demo/manifests/prod-justinrleenginx.yml"
             }}
@@ -51,7 +51,7 @@
             {{ module "stage.manifest.from.artifact"
                "name" "Deploy Dev"
                "account" "sales-dev"
-               "artifactId" "f898396e-54f0-4428-82d1-29bf05f428a5-t"
+               "artifactId" "multi-template-dev"
                "moniker" "multi-template"
                "refId" "1"
                "requisiteStageRefIds" []
@@ -60,7 +60,7 @@
             {{ module "stage.manifest.from.artifact"
                "name" "Deploy Prod"
                "account" "sales-prod"
-               "artifactId" "f898396e-54f0-4428-82d1-29bf05f428a5-t"
+               "artifactId" "multi-template-prod"
                "moniker" "multi-template"
                "refId" "3"
                "requisiteStageRefIds" ["2"]
