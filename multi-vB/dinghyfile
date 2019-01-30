@@ -1,21 +1,21 @@
 {
-    "application": "multi-template",
+    "application": "multi-vB",
     "pipelines": [
     {
-        "application": "multi-template",
+        "application": "multi-vB",
         "name": "Two Stage - v1",
         "appConfig": {},
         "description": "This is managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
         "expectedArtifacts": [
             {{ module "artifact.github.module"
-               "id" "multi-template-dev"
+               "id" "multi-vB-dev"
                "repo" "justinrlee/sales-pipelines"
-               "path" "multi-template/manifests/dev.yml"
+               "path" "multi-vB/manifests/dev.yml"
             }},
             {{ module "artifact.github.module"
-               "id" "multi-template-prod"
+               "id" "multi-vB-prod"
                "repo" "justinrlee/sales-pipelines"
-               "path" "multi-template/manifests/prod.yml"
+               "path" "multi-vB/manifests/prod.yml"
             }}
         ],
         "locked": {
@@ -44,7 +44,7 @@
                 "required": true
             },
             {
-              "default": "template",
+              "default": "vB",
               "description": "How should we identify this app?",
               "label": "Application Name",
               "name": "appName",
@@ -58,8 +58,8 @@
             {{ module "stage.manifest.from.artifact"
                "name" "Deploy Dev"
                "account" "sales-dev"
-               "artifactId" "multi-template-dev"
-               "moniker" "multi-template"
+               "artifactId" "multi-vB-dev"
+               "moniker" "multi-vB"
                "refId" "1"
                "requisiteStageRefIds" []
             }},
@@ -67,8 +67,8 @@
             {{ module "stage.manifest.from.artifact"
                "name" "Deploy Prod"
                "account" "sales-prod"
-               "artifactId" "multi-template-prod"
-               "moniker" "multi-template"
+               "artifactId" "multi-vB-prod"
+               "moniker" "multi-vB"
                "refId" "3"
                "requisiteStageRefIds" ["2"]
             }}
