@@ -1,19 +1,19 @@
 {
-    "application": "multi-vB",
+    "application": "multi-vb",
     "pipelines": [
     {
-        "application": "multi-vB",
+        "application": "multi-vb",
         "name": "Two Stage - v1",
         "appConfig": {},
         "description": "This is managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
         "expectedArtifacts": [
             {{ module "artifact.github.module"
-               "id" "multi-vB-dev"
+               "id" "multi-vb-dev"
                "repo" "justinrlee/sales-pipelines"
                "path" "multi-template/manifests/dev.yml"
             }},
             {{ module "artifact.github.module"
-               "id" "multi-vB-prod"
+               "id" "multi-vb-prod"
                "repo" "justinrlee/sales-pipelines"
                "path" "multi-template/manifests/prod.yml"
             }}
@@ -44,7 +44,7 @@
                 "required": true
             },
             {
-              "default": "vB",
+              "default": "vb",
               "description": "How should we identify this app?",
               "label": "Application Name",
               "name": "appName",
@@ -58,8 +58,8 @@
             {{ module "stage.manifest.from.artifact"
                "name" "Deploy Dev"
                "account" "sales-dev"
-               "artifactId" "multi-vB-dev"
-               "moniker" "multi-vB"
+               "artifactId" "multi-vb-dev"
+               "moniker" "multi-vb"
                "refId" "1"
                "requisiteStageRefIds" []
             }},
@@ -67,8 +67,8 @@
             {{ module "stage.manifest.from.artifact"
                "name" "Deploy Prod"
                "account" "sales-prod"
-               "artifactId" "multi-vB-prod"
-               "moniker" "multi-vB"
+               "artifactId" "multi-vb-prod"
+               "moniker" "multi-vb"
                "refId" "3"
                "requisiteStageRefIds" ["2"]
             }}
