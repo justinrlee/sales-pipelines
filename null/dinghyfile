@@ -1,10 +1,10 @@
 {
-  "application": "deleteme5",
   "spec": {
     "dataSources": {
       "disabled":[],
       "enabled":["canaryConfigs"]
-    }
+    },
+    "name": "dm6"
   },
   "pipelines": []
 }
