@@ -4,7 +4,8 @@
       "disabled":[],
       "enabled":["canaryConfigs"]
     },
-    "name": "dm6"
+    "name": "dm7",
+    "email": "justin.lee@armory.io"
   },
   "pipelines": []
 }
