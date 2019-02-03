@@ -1,11 +1,10 @@
 {
-  "application": "deleteme2",
+  "application": "deletem3",
   "spec": {
     "dataSources": {
       "disabled":[],
       "enabled":["canaryConfigs"]
-    },
-    "email": "justin.lee@armory.io"
+    }
   },
   "pipelines": []
 }
