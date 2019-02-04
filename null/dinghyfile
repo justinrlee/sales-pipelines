@@ -1,6 +1,7 @@
 {
   "spec": {
-    "name": "delete4"
+    "name": "delete5"
   },
+  "application": "ignored",
   "pipelines": []
 }
