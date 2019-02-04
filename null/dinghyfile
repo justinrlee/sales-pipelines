@@ -1,6 +1,10 @@
 {
   "spec": {
-    "name": "delete9"
+    "name": "delete10",
+    "dataSources": {
+      "disabled": [],
+      "enabled": []
+    }
   },
   "pipelines": []
 }
