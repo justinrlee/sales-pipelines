@@ -1,6 +1,11 @@
 {
   "spec": {
+      "dataSources": {
+        "disabled": [],
+        "enabled": []
+      },
+      "email": "justin.r.lee@gmail.com"
   },
-  "application": "delete6",
+  "application": "delete7",
   "pipelines": []
 }
