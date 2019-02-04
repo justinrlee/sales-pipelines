@@ -1,11 +1,11 @@
 {
   "spec": {
       "dataSources": {
-        "disabled": [],
+        "disabled": ["executions"],
         "enabled": ["canaryConfigs"]
       },
       "email": "justin.r.lee@gmail.com"
   },
-  "application": "delete8",
+  "application": "delete9",
   "pipelines": []
 }
