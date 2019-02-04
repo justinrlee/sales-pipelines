@@ -1,7 +1,6 @@
 {
   "spec": {
       "dataSources": {
-        "disabled": ["executions"],
         "enabled": ["canaryConfigs"]
       },
       "email": "justin.r.lee@gmail.com"
