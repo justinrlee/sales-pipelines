@@ -1,4 +1,6 @@
 {
-  "application": "deletem8",
+  "spec": {
+    "name": "delete9"
+  },
   "pipelines": []
 }
