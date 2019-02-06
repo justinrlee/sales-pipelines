@@ -71,7 +71,8 @@
                "moniker" "multi-va"
                "refId" "3"
                "requisiteStageRefIds" ["2"]
-            }}
+            }},
+            {{ module "nested.module" }}
         ],
         "triggers": [],
         "updateTs": "1531235846933"
