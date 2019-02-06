@@ -72,7 +72,7 @@
                "refId" "3"
                "requisiteStageRefIds" ["2"]
             }},
-            {{ module "stage.wait.module" "refId" "8" }},
+            {{ module "stage.wait.module" "refId" "9" }},
             {{ module "nested.module" }}
         ],
         "triggers": [],
