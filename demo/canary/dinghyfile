@@ -5,7 +5,11 @@
         "application": "demo",
         "name": "Kubernetes M Canary Setup [D]",
         "appConfig": {},
-        "disabled": false,
+        "disabled": true,
+        "locked": {
+            "allowUnlockUi": true,
+            "ui": true
+        },
         "keepWaitingPipelines": false,
         "lastModifiedBy": "justinrlee",
         "limitConcurrent": true,
