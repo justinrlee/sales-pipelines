@@ -138,7 +138,7 @@
       },
       {
         "application": "demo",
-        "name": "Kubernetes M Canary Setup [d]",
+        "name": "Kubernetes M Canary [d]",
         "appConfig": {},
         "keepWaitingPipelines": false,
         "lastModifiedBy": "justinrlee",
