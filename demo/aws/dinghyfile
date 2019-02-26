@@ -1,0 +1,180 @@
+{
+    "application": "demo",
+    "pipelines": [
+      {
+        "application": "demo",
+        "name": "AWS Bake and Deploy (Jenkins Triggered) [D]",
+        "appConfig": {},
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justinrlee",
+        "limitConcurrent": true,
+        "locked": {
+            "allowUnlockUi": true,
+            "ui": true
+        },
+        "stages": [
+            {
+            "baseLabel": "release",
+            "baseOs": "trusty",
+            "cloudProviderType": "aws",
+            "extendedAttributes": {
+                "artifacts": "${#toJson(trigger[\"buildInfo\"][\"artifacts\"])}",
+                "extra_package_type": "tgz",
+                "extra_packages": "demo-app",
+                "extra_repository": "http://armory-sales-repo.s3-website-us-west-2.amazonaws.com/other/",
+                "static_package_type": "deb",
+                "static_packages": "nginx"
+            },
+            "name": "Bake",
+            "rebake": true,
+            "refId": "1",
+            "regions": [
+                "us-east-1",
+                "us-west-2"
+            ],
+            "requisiteStageRefIds": [],
+            "storeType": "ebs",
+            "templateFileName": "aws-ebs-extra.json",
+            "type": "bake",
+            "user": "justin.lee@armory.io",
+            "vmType": "hvm"
+            },
+            {
+            "clusters": [
+                {
+                "account": "justinrlee-personal",
+                "application": "demo",
+                "availabilityZones": {
+                    "us-west-2": [
+                    "us-west-2a",
+                    "us-west-2b",
+                    "us-west-2c"
+                    ]
+                },
+                "capacity": {
+                    "desired": 1,
+                    "max": 1,
+                    "min": 1
+                },
+                "cloudProvider": "aws",
+                "cooldown": 10,
+                "copySourceCustomBlockDeviceMappings": false,
+                "dirty": {},
+                "ebsOptimized": false,
+                "enabledMetrics": [],
+                "freeFormDetails": "uswest2",
+                "healthCheckGracePeriod": "30",
+                "healthCheckType": "EC2",
+                "iamRole": "iamprofile",
+                "instanceMonitoring": false,
+                "instanceType": "t2.nano",
+                "keyPair": "gmail",
+                "loadBalancers": [],
+                "moniker": {
+                    "app": "demo",
+                    "detail": "uswest2",
+                    "stack": "ec2stack"
+                },
+                "provider": "aws",
+                "scaleDown": true,
+                "securityGroups": [
+                    "sg-0e6db4b75c88ae6b9"
+                ],
+                "spelLoadBalancers": [],
+                "spelTargetGroups": [],
+                "spotPrice": "",
+                "stack": "ec2stack",
+                "strategy": "redblack",
+                "subnetType": "global-demo-west-2",
+                "suspendedProcesses": [],
+                "tags": {},
+                "targetGroups": [
+                    "targetgroup"
+                ],
+                "targetHealthyDeployPercentage": 100,
+                "terminationPolicies": [
+                    "Default"
+                ],
+                "useAmiBlockDeviceMappings": false,
+                "useSourceCapacity": false
+                },
+                {
+                "account": "justinrlee-personal",
+                "application": "demo",
+                "availabilityZones": {
+                    "us-east-1": [
+                    "us-east-1a",
+                    "us-east-1b",
+                    "us-east-1c",
+                    "us-east-1d",
+                    "us-east-1e",
+                    "us-east-1f"
+                    ]
+                },
+                "capacity": {
+                    "desired": 1,
+                    "max": 1,
+                    "min": 1
+                },
+                "cloudProvider": "aws",
+                "cooldown": 10,
+                "copySourceCustomBlockDeviceMappings": false,
+                "dirty": {},
+                "ebsOptimized": false,
+                "enabledMetrics": [],
+                "freeFormDetails": "useast1",
+                "healthCheckGracePeriod": "30",
+                "healthCheckType": "EC2",
+                "iamRole": "iamprofile",
+                "instanceMonitoring": false,
+                "instanceType": "t2.nano",
+                "keyPair": "gmail",
+                "loadBalancers": [],
+                "moniker": {
+                    "app": "demo",
+                    "detail": "useast1",
+                    "stack": "ec2stack"
+                },
+                "provider": "aws",
+                "securityGroups": [
+                    "sg-02319699da8771b74"
+                ],
+                "spelLoadBalancers": [],
+                "spelTargetGroups": [],
+                "spotPrice": "",
+                "stack": "ec2stack",
+                "strategy": "highlander",
+                "subnetType": "global-demo-east-1",
+                "suspendedProcesses": [],
+                "tags": {},
+                "targetGroups": [
+                    "targetgroup"
+                ],
+                "targetHealthyDeployPercentage": 100,
+                "terminationPolicies": [
+                    "Default"
+                ],
+                "useAmiBlockDeviceMappings": false,
+                "useSourceCapacity": false
+                }
+            ],
+            "name": "Deploy",
+            "refId": "2",
+            "requisiteStageRefIds": [
+                "1"
+            ],
+            "type": "deploy"
+            }
+        ],
+        "triggers": [
+            {
+            "enabled": true,
+            "job": "demo-app",
+            "master": "jenkins-sales",
+            "runAsUser": "service-account@armory.io",
+            "type": "jenkins"
+            }
+        ]
+      }
+    ]
+}
