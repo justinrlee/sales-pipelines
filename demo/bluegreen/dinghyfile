@@ -1,0 +1,254 @@
+{
+    "application": "demo",
+    "pipelines": [
+      {
+        "application": "demo",
+        "name": "Kubernetes Blue Green Setup [d]",
+        "appConfig": {},
+        "disabled": true,
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justinrlee",
+        "limitConcurrent": true,
+        "locked": {
+          "allowUnlockUi": true,
+          "ui": true
+        },
+        "parameterConfig": [
+          {
+            "default": "4",
+            "description": "How many instances would you like?",
+            "label": "Instance Count",
+            "name": "count",
+            "required": true
+          },
+          {
+            "default": "world",
+            "description": "What Docker image tag (for justinrlee/nginx) should we use?",
+            "label": "Docker Tag",
+            "name": "tag",
+            "required": true
+          }
+        ],
+        "stages": [
+          {
+            "account": "sales-dev",
+            "cloudProvider": "kubernetes",
+            "manifestArtifactAccount": "embedded-artifact",
+            "manifests": [
+              {
+                "apiVersion": "extensions/v1beta1",
+                "kind": "ReplicaSet",
+                "metadata": {
+                  "annotations": {
+                    "strategy.spinnaker.io/max-version-history": "2",
+                    "traffic.spinnaker.io/load-balancers": "[\"service bluegreen-service\"]"
+                  },
+                  "labels": {
+                    "app": "bluegreen"
+                  },
+                  "name": "bluegreen",
+                  "namespace": "sales-dev"
+                },
+                "spec": {
+                  "replicas": "${#toInt(parameters.count)}",
+                  "selector": {
+                    "matchLabels": {
+                      "app": "bluegreen"
+                    }
+                  },
+                  "template": {
+                    "metadata": {
+                      "labels": {
+                        "app": "bluegreen"
+                      }
+                    },
+                    "spec": {
+                      "containers": [
+                        {
+                          "image": "justinrlee/nginx:${parameters.tag}",
+                          "name": "primary",
+                          "ports": [
+                            {
+                              "containerPort": 80
+                            }
+                          ],
+                          "readinessProbe": {
+                            "httpGet": {
+                              "path": "/",
+                              "port": 80
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ],
+            "moniker": {
+              "app": "demo"
+            },
+            "name": "Deploy App",
+            "refId": "13",
+            "relationships": {
+              "loadBalancers": [],
+              "securityGroups": []
+            },
+            "requisiteStageRefIds": [
+              "14"
+            ],
+            "source": "text",
+            "type": "deployManifest"
+          },
+          {
+            "account": "sales-dev",
+            "cloudProvider": "kubernetes",
+            "manifestArtifactAccount": "embedded-artifact",
+            "manifests": [
+              {
+                "apiVersion": "v1",
+                "kind": "Service",
+                "metadata": {
+                  "name": "bluegreen-service",
+                  "namespace": "sales-dev"
+                },
+                "spec": {
+                  "ports": [
+                    {
+                      "port": 80,
+                      "protocol": "TCP",
+                      "targetPort": 80
+                    }
+                  ],
+                  "selector": {
+                    "lb": "bluegreen"
+                  },
+                  "type": "LoadBalancer"
+                }
+              }
+            ],
+            "moniker": {
+              "app": "demo"
+            },
+            "name": "Deploy Service",
+            "refId": "14",
+            "relationships": {
+              "loadBalancers": [],
+              "securityGroups": []
+            },
+            "requisiteStageRefIds": [],
+            "source": "text",
+            "type": "deployManifest"
+          }
+        ],
+        "triggers": []
+      },
+      {
+        "application": "demo",
+        "name": "Kubernetes Blue Green Deployment [d]",
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justinrlee",
+        "limitConcurrent": true,
+        "parameterConfig": [
+          {
+            "default": "2",
+            "name": "count",
+            "required": true
+          },
+          {
+            "default": "world",
+            "name": "tag",
+            "required": true
+          }
+        ],
+        "stages": [
+          {
+            "account": "sales-dev",
+            "cloudProvider": "kubernetes",
+            "manifestArtifactAccount": "embedded-artifact",
+            "manifests": [
+              {
+                "apiVersion": "extensions/v1beta1",
+                "kind": "ReplicaSet",
+                "metadata": {
+                  "annotations": {
+                    "strategy.spinnaker.io/max-version-history": "2",
+                    "traffic.spinnaker.io/load-balancers": "[\"service bluegreen-service\"]"
+                  },
+                  "labels": {
+                    "app": "bluegreen"
+                  },
+                  "name": "bluegreen",
+                  "namespace": "sales-dev"
+                },
+                "spec": {
+                  "replicas": "${#toInt(parameters.count)}",
+                  "selector": {
+                    "matchLabels": {
+                      "app": "bluegreen"
+                    }
+                  },
+                  "template": {
+                    "metadata": {
+                      "labels": {
+                        "app": "bluegreen"
+                      }
+                    },
+                    "spec": {
+                      "containers": [
+                        {
+                          "image": "justinrlee/nginx:${parameters.tag}",
+                          "name": "primary",
+                          "ports": [
+                            {
+                              "containerPort": 80
+                            }
+                          ],
+                          "readinessProbe": {
+                            "httpGet": {
+                              "path": "/",
+                              "port": 80
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ],
+            "moniker": {
+              "app": "demo"
+            },
+            "name": "Deploy (Manifest)",
+            "refId": "1",
+            "relationships": {
+              "loadBalancers": [],
+              "securityGroups": []
+            },
+            "requisiteStageRefIds": [],
+            "source": "text",
+            "type": "deployManifest"
+          },
+          {
+            "account": "sales-dev",
+            "app": "demo",
+            "cloudProvider": "kubernetes",
+            "cluster": "replicaSet bluegreen",
+            "criteria": "second_newest",
+            "kind": "replicaSet",
+            "location": "sales-dev",
+            "manifestName": " ",
+            "mode": "dynamic",
+            "name": "Disable (Manifest)",
+            "refId": "2",
+            "requisiteStageRefIds": [
+              "1"
+            ],
+            "type": "disableManifest"
+          }
+        ],
+        "triggers": []
+      }
+    ]
+}
