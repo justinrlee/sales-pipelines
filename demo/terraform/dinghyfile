@@ -290,6 +290,213 @@
           }
         ],
         "triggers": []
+      },
+      {
+        "application": "demo",
+        "name": "Terraform Only [D]",
+        "appConfig": {},
+        "disabled": false,
+        "expectedArtifacts": [
+            {
+            "defaultArtifact": {
+                "id": "ad25daac-fdfc-4877-8121-4f8ffc8d4720",
+                "kind": "default.github",
+                "name": "deployment/deployment.yml",
+                "reference": "https://api.github.com/repos/armory-io/demo-api/contents/deployment/deployment.yml",
+                "type": "github/file",
+                "version": "master"
+            },
+            "id": "f5280bb8-c30f-43cb-8b80-9ea5ee896dc4",
+            "matchArtifact": {
+                "id": "82d0afb0-2d0d-40c5-93fd-d8ad8a1332e4",
+                "kind": "github",
+                "name": "deployment/deployment.yml",
+                "type": "github/file"
+            },
+            "useDefaultArtifact": true,
+            "usePriorArtifact": false
+            },
+            {
+            "defaultArtifact": {
+                "id": "db0e4356-da84-4196-9993-cfe2f7f1aef1",
+                "kind": "default.docker",
+                "name": "armory/demo-api",
+                "reference": "armory/demo-api:latest",
+                "type": "docker/image",
+                "version": "latest"
+            },
+            "id": "c816eec6-7ce8-444f-b9c0-01961bea5f02",
+            "matchArtifact": {
+                "id": "8cc343f8-5973-4f39-971b-9990a1cd1c4a",
+                "kind": "docker",
+                "name": "armory/demo-api",
+                "type": "docker/image"
+            },
+            "useDefaultArtifact": true,
+            "usePriorArtifact": false
+            }
+        ],
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justinrlee",
+        "limitConcurrent": true,
+        "locked": {
+            "allowUnlockUi": true,
+            "ui": true
+        },
+        "parameterConfig": [
+            {
+            "default": "sales-dev",
+            "label": "Namespace",
+            "name": "namespace",
+            "required": true
+            },
+            {
+            "default": "armory-terraform-demo",
+            "label": "Environment Name",
+            "name": "environment_name",
+            "required": true
+            }
+        ],
+        "stages": [
+            {
+            "action": "plan",
+            "artifacts": [
+                {
+                "reference": "https://github.com/armory-io/demo-api",
+                "type": "git/repo"
+                }
+            ],
+            "backendArtifact": {
+                "artifactAccount": "github_justinrlee_sales",
+                "reference": "https://api.github.com/repos/armory-io/demo-api/contents/terraform/environments/demo/backend.tfvars",
+                "type": "github/file"
+            },
+            "comments": "View Plan output <a href=\"https://gate.sales.armory.io/proxies/terraform/api/v1/job/${#stage('Plan: Create Environment')['context']['status']['id']}/logs\">here</a>",
+            "dir": "terraform/environments/demo",
+            "name": "Plan: Create Environment",
+            "overrides": {
+                "environment_name": "${parameters.environment_name}"
+            },
+            "refId": "2",
+            "requisiteStageRefIds": [],
+            "type": "terraform"
+            },
+            {
+            "comments": "",
+            "failPipeline": true,
+            "instructions": "We're about to create the backend environment.  You can see the 'terraform plan' output here: <a href=\"https://gate.sales.armory.io/proxies/terraform/api/v1/job/${#stage('Plan: Create Environment')['context']['status']['id']}/logs\">logs</a>.  <br>When you're ready, click 'Continue' to run a 'terraform apply' and create the environment.\n\nYou can check the status of the application here: <a href='${ #stage(\"Get Ingress\")[\"outputs\"][\"manifest\"][\"status\"][\"loadBalancer\"].containsKey(\"ingress\") ?\n\"http://\" + #stage(\"Get Ingress\")[\"outputs\"][\"manifest\"][\"status\"][\"loadBalancer\"][\"ingress\"][0][\"hostname\"] + \"/api\" : \"https://spinnaker.sales.armory.io/#/applications/demo/loadBalancers\"}'>Demo App</a>.\n\nIt should currently be unable to connect to the S3 bucket.",
+            "judgmentInputs": [],
+            "name": "Confirm Plan",
+            "notifications": [],
+            "refId": "3",
+            "requisiteStageRefIds": [
+                "2"
+            ],
+            "type": "manualJudgment"
+            },
+            {
+            "action": "apply",
+            "artifacts": [
+                {
+                "reference": "https://github.com/armory-io/demo-api",
+                "type": "git/repo"
+                }
+            ],
+            "backendArtifact": {
+                "artifactAccount": "github_justinrlee_sales",
+                "reference": "https://api.github.com/repos/armory-io/demo-api/contents/terraform/environments/demo/backend.tfvars",
+                "type": "github/file"
+            },
+            "comments": "View Plan output <a href=\"https://gate.sales.armory.io/proxies/terraform/api/v1/job/${#stage('Create Environment')['context']['status']['id']}/logs\">here</a>",
+            "dir": "terraform/environments/demo",
+            "name": "Create Environment",
+            "overrides": {
+                "environment_name": "${parameters.environment_name}"
+            },
+            "refId": "4",
+            "requisiteStageRefIds": [
+                "3"
+            ],
+            "type": "terraform"
+            },
+            {
+            "failPipeline": true,
+            "instructions": "Use the environment for a bit and make sure that everything is good to go.\n\nYou can check the status of the application here: <a href='${ #stage(\"Get Ingress\")[\"outputs\"][\"manifest\"][\"status\"][\"loadBalancer\"].containsKey(\"ingress\") ?\n\"http://\" + #stage(\"Get Ingress\")[\"outputs\"][\"manifest\"][\"status\"][\"loadBalancer\"][\"ingress\"][0][\"hostname\"] + \"/api\" : \"https://spinnaker.sales.armory.io/#/applications/demo/loadBalancers\"}'>Demo App</a>.\n\nIt should currently be able to connect to the S3 bucket.\n\nWhen you're done, click 'Continue' to destroy the environment.",
+            "judgmentInputs": [],
+            "name": "Use Environment",
+            "notifications": [],
+            "refId": "5",
+            "requisiteStageRefIds": [
+                "4"
+            ],
+            "type": "manualJudgment"
+            },
+            {
+            "action": "plan",
+            "artifacts": [
+                {
+                "reference": "https://github.com/armory-io/demo-api",
+                "type": "git/repo"
+                }
+            ],
+            "backendArtifact": {
+                "artifactAccount": "github_justinrlee_sales",
+                "reference": "https://api.github.com/repos/armory-io/demo-api/contents/terraform/environments/demo/backend.tfvars",
+                "type": "github/file"
+            },
+            "comments": "View Plan output <a href=\"https://gate.sales.armory.io/proxies/terraform/api/v1/job/${#stage('Plan: Destroy Environment')['context']['status']['id']}/logs\">here</a>",
+            "dir": "terraform/environments/demo",
+            "name": "Plan: Destroy Environment",
+            "overrides": {
+                "environment_name": "${parameters.environment_name}"
+            },
+            "planForDestroy": true,
+            "refId": "6",
+            "requisiteStageRefIds": [
+                "5"
+            ],
+            "type": "terraform"
+            },
+            {
+            "failPipeline": true,
+            "instructions": "We're about to destroy the backend environment.  Take a look at the output of 'terraform plan -destroy' here: <a href=\"https://gate.sales.armory.io/proxies/terraform/api/v1/job/${#stage('Plan: Destroy Environment')['context']['status']['id']}/logs\">logs</a>.  <br>When you're ready to destroy the resources, click 'Continue'.",
+            "judgmentInputs": [],
+            "name": "Confirm Destroy Plan",
+            "notifications": [],
+            "refId": "7",
+            "requisiteStageRefIds": [
+                "6"
+            ],
+            "type": "manualJudgment"
+            },
+            {
+            "action": "destroy",
+            "artifacts": [
+                {
+                "reference": "https://github.com/armory-io/demo-api",
+                "type": "git/repo"
+                }
+            ],
+            "backendArtifact": {
+                "artifactAccount": "github_justinrlee_sales",
+                "reference": "https://api.github.com/repos/armory-io/demo-api/contents/terraform/environments/demo/backend.tfvars",
+                "type": "github/file"
+            },
+            "comments": "View terraform destroy output <a href=\"https://gate.sales.armory.io/proxies/terraform/api/v1/job/${#stage('Destroy Environment')['context']['status']['id']}/logs\">here</a>",
+            "dir": "terraform/environments/demo",
+            "name": "Destroy Environment",
+            "overrides": {
+                "environment_name": "${parameters.environment_name}"
+            },
+            "refId": "8",
+            "requisiteStageRefIds": [
+                "7"
+            ],
+            "type": "terraform"
+            }
+        ],
+        "triggers": [],
+        "updateTs": "1551213075000"
       }
     ]
 }
