@@ -3,7 +3,7 @@
     "pipelines": [
       {
         "application": "demo",
-        "name": "Kubernetes M Canary Setup [d]",
+        "name": "Kubernetes M Canary Setup [D]",
         "appConfig": {},
         "disabled": false,
         "keepWaitingPipelines": false,
@@ -138,7 +138,7 @@
       },
       {
         "application": "demo",
-        "name": "Kubernetes M Canary [d]",
+        "name": "Kubernetes M Canary [D]",
         "appConfig": {},
         "keepWaitingPipelines": false,
         "lastModifiedBy": "justinrlee",
