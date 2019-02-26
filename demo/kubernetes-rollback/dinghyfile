@@ -1,0 +1,487 @@
+{
+    "application": "demo",
+    "pipelines": [
+      {
+        "application": "demo",
+        "name": "Kubernetes Automatic Rollback - Full [D]",
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justinrlee",
+        "limitConcurrent": true,
+        "locked": {
+            "allowUnlockUi": true,
+            "ui": true
+        },
+        "parameterConfig": [
+            {
+            "default": "world",
+            "description": "Tag to use for front end service (justinrlee/nginx)",
+            "label": "Front End Tag",
+            "name": "frontendtag",
+            "required": true
+            },
+            {
+            "default": "world",
+            "description": "Tag to use for back end service (justinrlee/nginx)",
+            "label": "Back End Tag",
+            "name": "backendtag",
+            "required": true
+            },
+            {
+            "default": "2",
+            "description": "Number of instances to deploy for dev",
+            "label": "Dev Instances",
+            "name": "devcount",
+            "required": true
+            },
+            {
+            "default": "4",
+            "description": "Number of instances to deploy for prod",
+            "label": "Prod Instances",
+            "name": "prodcount",
+            "required": true
+            }
+        ],
+        "stages": [
+            {
+            "application": "demo",
+            "failPipeline": true,
+            "name": "Deploy Frontend",
+            "pipeline": "2730385e-a396-46a3-ab89-6a43317dc7d9",
+            "pipelineParameters": {
+                "devcount": "${parameters.devcount}",
+                "prodcount": "${parameters.prodcount}",
+                "tag": "${parameters.frontendtag}"
+            },
+            "refId": "1",
+            "requisiteStageRefIds": [],
+            "type": "pipeline",
+            "waitForCompletion": true
+            },
+            {
+            "application": "demo",
+            "failPipeline": true,
+            "name": "Deploy Backend",
+            "pipeline": "e89666d1-2e5b-4ea4-afc3-3c92d2139589",
+            "pipelineParameters": {
+                "devcount": "${parameters.devcount}",
+                "prodcount": "${parameters.prodcount}",
+                "tag": "${parameters.backendtag}"
+            },
+            "refId": "2",
+            "requisiteStageRefIds": [],
+            "type": "pipeline",
+            "waitForCompletion": true
+            }
+        ],
+        "triggers": []
+      },
+      {
+        "application": "demo",
+        "name": "Kubernetes Automatic Rollback - Frontend [D]",
+        "appConfig": {},
+        "description": "",
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justinrlee",
+        "limitConcurrent": true,
+        "locked": {
+            "allowUnlockUi": true,
+            "ui": true
+        },
+        "parameterConfig": [
+            {
+            "default": "2",
+            "description": "How many dev instances would you like?",
+            "label": "Dev Instance Count",
+            "name": "devcount",
+            "required": true
+            },
+            {
+            "default": "4",
+            "description": "How many prod instances would you like?",
+            "label": "Prod Instance Count",
+            "name": "prodcount",
+            "required": true
+            },
+            {
+            "default": "world",
+            "description": "What Docker image tag (for justinrlee/nginx) should we use?",
+            "label": "Docker Tag",
+            "name": "tag",
+            "required": true
+            }
+        ],
+        "stages": [
+            {
+            "account": "sales-dev",
+            "cloudProvider": "kubernetes",
+            "completeOtherBranchesThenFail": false,
+            "continuePipeline": true,
+            "failPipeline": false,
+            "manifestArtifactAccount": "embedded-artifact",
+            "manifests": [
+                {
+                "apiVersion": "extensions/v1beta1",
+                "kind": "Deployment",
+                "metadata": {
+                    "labels": {
+                    "app": "automatic-rollback-frontend"
+                    },
+                    "name": "automatic-rollback-frontend",
+                    "namespace": "sales-dev"
+                },
+                "spec": {
+                    "replicas": "${ #toInt( parameters.devcount ) }",
+                    "selector": {
+                    "matchLabels": {
+                        "app": "automatic-rollback-frontend"
+                    }
+                    },
+                    "template": {
+                    "metadata": {
+                        "labels": {
+                        "app": "automatic-rollback-frontend"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                        {
+                            "image": "justinrlee/nginx:${parameters.tag}",
+                            "name": "primary",
+                            "ports": [
+                            {
+                                "containerPort": 80
+                            }
+                            ],
+                            "readinessProbe": {
+                            "httpGet": {
+                                "path": "/",
+                                "port": 80
+                            }
+                            }
+                        }
+                        ]
+                    }
+                    }
+                }
+                }
+            ],
+            "moniker": {
+                "app": "demo"
+            },
+            "name": "Deploy Dev",
+            "overrideTimeout": true,
+            "refId": "1",
+            "relationships": {
+                "loadBalancers": [],
+                "securityGroups": []
+            },
+            "requisiteStageRefIds": [],
+            "source": "text",
+            "stageTimeoutMs": 60000,
+            "type": "deployManifest"
+            },
+            {
+            "account": "sales-prod",
+            "cloudProvider": "kubernetes",
+            "manifestArtifactAccount": "embedded-artifact",
+            "manifests": [
+                {
+                "apiVersion": "extensions/v1beta1",
+                "kind": "Deployment",
+                "metadata": {
+                    "labels": {
+                    "app": "automatic-rollback-frontend"
+                    },
+                    "name": "automatic-rollback-frontend",
+                    "namespace": "sales-prod"
+                },
+                "spec": {
+                    "replicas": "${ #toInt( parameters.prodcount ) }",
+                    "selector": {
+                    "matchLabels": {
+                        "app": "automatic-rollback-frontend"
+                    }
+                    },
+                    "template": {
+                    "metadata": {
+                        "labels": {
+                        "app": "automatic-rollback-frontend"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                        {
+                            "image": "justinrlee/nginx:${parameters.tag}",
+                            "name": "primary",
+                            "ports": [
+                            {
+                                "containerPort": 80
+                            }
+                            ],
+                            "readinessProbe": {
+                            "httpGet": {
+                                "path": "/",
+                                "port": 80
+                            }
+                            }
+                        }
+                        ]
+                    }
+                    }
+                }
+                }
+            ],
+            "moniker": {
+                "app": "demo"
+            },
+            "name": "Deploy Prod",
+            "refId": "2",
+            "relationships": {
+                "loadBalancers": [],
+                "securityGroups": []
+            },
+            "requisiteStageRefIds": [
+                "1"
+            ],
+            "source": "text",
+            "stageEnabled": {
+                "expression": "#stage(\"Deploy Dev\")[\"status\"].toString() == \"SUCCEEDED\"",
+                "type": "expression"
+            },
+            "type": "deployManifest"
+            },
+            {
+            "account": "sales-dev",
+            "cloudProvider": "kubernetes",
+            "location": "sales-dev",
+            "manifestName": "deployment automatic-rollback-frontend",
+            "name": "Roll Back Dev",
+            "numRevisionsBack": 1,
+            "refId": "3",
+            "requisiteStageRefIds": [
+                "1"
+            ],
+            "stageEnabled": {
+                "expression": "#stage(\"Deploy Dev\")[\"status\"].toString() == \"FAILED_CONTINUE\"",
+                "type": "expression"
+            },
+            "type": "undoRolloutManifest"
+            }
+        ],
+        "triggers": []
+      },
+      {
+        "application": "demo",
+        "name": "Kubernetes Automatic Rollback - Backend [D]",
+        "appConfig": {},
+        "description": "",
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justinrlee",
+        "limitConcurrent": true,
+        "locked": {
+            "allowUnlockUi": true,
+            "ui": true
+        },
+        "parameterConfig": [
+            {
+            "default": "2",
+            "description": "How many dev instances would you like?",
+            "label": "Dev Instance Count",
+            "name": "devcount",
+            "required": true
+            },
+            {
+            "default": "4",
+            "description": "How many prod instances would you like?",
+            "label": "Prod Instance Count",
+            "name": "prodcount",
+            "required": true
+            },
+            {
+            "default": "world",
+            "description": "What Docker image tag (for justinrlee/nginx) should we use?",
+            "label": "Docker Tag",
+            "name": "tag",
+            "required": true
+            }
+        ],
+        "stages": [
+            {
+            "account": "sales-dev",
+            "cloudProvider": "kubernetes",
+            "completeOtherBranchesThenFail": false,
+            "continuePipeline": true,
+            "failPipeline": false,
+            "manifestArtifactAccount": "embedded-artifact",
+            "manifests": [
+                {
+                "apiVersion": "extensions/v1beta1",
+                "kind": "Deployment",
+                "metadata": {
+                    "labels": {
+                    "app": "automatic-rollback-backend"
+                    },
+                    "name": "automatic-rollback-backend",
+                    "namespace": "sales-dev"
+                },
+                "spec": {
+                    "replicas": "${ #toInt( parameters.devcount ) }",
+                    "selector": {
+                    "matchLabels": {
+                        "app": "automatic-rollback-backend"
+                    }
+                    },
+                    "template": {
+                    "metadata": {
+                        "labels": {
+                        "app": "automatic-rollback-backend"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                        {
+                            "image": "justinrlee/nginx:${parameters.tag}",
+                            "name": "primary",
+                            "ports": [
+                            {
+                                "containerPort": 80
+                            }
+                            ],
+                            "readinessProbe": {
+                            "httpGet": {
+                                "path": "/",
+                                "port": 80
+                            }
+                            }
+                        }
+                        ]
+                    }
+                    }
+                }
+                }
+            ],
+            "moniker": {
+                "app": "demo"
+            },
+            "name": "Deploy Dev",
+            "overrideTimeout": true,
+            "refId": "1",
+            "relationships": {
+                "loadBalancers": [],
+                "securityGroups": []
+            },
+            "requisiteStageRefIds": [],
+            "source": "text",
+            "stageTimeoutMs": 180000,
+            "type": "deployManifest"
+            },
+            {
+            "account": "sales-prod",
+            "cloudProvider": "kubernetes",
+            "manifestArtifactAccount": "embedded-artifact",
+            "manifests": [
+                {
+                "apiVersion": "extensions/v1beta1",
+                "kind": "Deployment",
+                "metadata": {
+                    "labels": {
+                    "app": "automatic-rollback-backend"
+                    },
+                    "name": "automatic-rollback-backend",
+                    "namespace": "sales-prod"
+                },
+                "spec": {
+                    "replicas": "${ #toInt( parameters.prodcount ) }",
+                    "selector": {
+                    "matchLabels": {
+                        "app": "automatic-rollback-backend"
+                    }
+                    },
+                    "template": {
+                    "metadata": {
+                        "labels": {
+                        "app": "automatic-rollback-backend"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                        {
+                            "image": "justinrlee/nginx:${parameters.tag}",
+                            "name": "primary",
+                            "ports": [
+                            {
+                                "containerPort": 80
+                            }
+                            ],
+                            "readinessProbe": {
+                            "httpGet": {
+                                "path": "/",
+                                "port": 80
+                            }
+                            }
+                        }
+                        ]
+                    }
+                    }
+                }
+                }
+            ],
+            "moniker": {
+                "app": "demo"
+            },
+            "name": "Deploy Prod",
+            "refId": "2",
+            "relationships": {
+                "loadBalancers": [],
+                "securityGroups": []
+            },
+            "requisiteStageRefIds": [
+                "1"
+            ],
+            "source": "text",
+            "stageEnabled": {
+                "expression": "#stage(\"Deploy Dev\")[\"status\"].toString() == \"SUCCEEDED\"",
+                "type": "expression"
+            },
+            "type": "deployManifest"
+            },
+            {
+            "account": "sales-dev",
+            "cloudProvider": "kubernetes",
+            "location": "sales-dev",
+            "manifestName": "deployment automatic-rollback-backend",
+            "name": "Roll Back Dev",
+            "numRevisionsBack": 1,
+            "refId": "3",
+            "requisiteStageRefIds": [
+                "1"
+            ],
+            "stageEnabled": {
+                "expression": "#stage(\"Deploy Dev\")[\"status\"].toString() == \"FAILED_CONTINUE\"",
+                "type": "expression"
+            },
+            "type": "undoRolloutManifest"
+            },
+            {
+            "name": "Aggregate Status",
+            "preconditions": [
+                {
+                "context": {
+                    "expression": "#stage(\"Deploy Prod\")[\"status\"].toString() == \"SUCCEEDED\""
+                },
+                "failPipeline": true,
+                "type": "expression"
+                }
+            ],
+            "refId": "4",
+            "requisiteStageRefIds": [
+                "2",
+                "3"
+            ],
+            "type": "checkPreconditions"
+            }
+        ],
+        "triggers": []
+      }
+    ]
+}
