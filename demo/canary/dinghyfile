@@ -1,0 +1,523 @@
+{
+    "application": "demo",
+    "pipelines": [
+      {
+        "application": "demo",
+        "name": "Kubernetes M Canary Setup [d]",
+        "appConfig": {},
+        "disabled": false,
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justinrlee",
+        "limitConcurrent": true,
+        "parameterConfig": [
+            {
+            "default": "4",
+            "description": "How many instances would you like?",
+            "label": "Instance Count",
+            "name": "count",
+            "required": true
+            },
+            {
+            "default": "world",
+            "description": "What Docker image tag (for justinrlee/nginx) should we use?",
+            "label": "Docker Tag",
+            "name": "tag",
+            "required": true
+            }
+        ],
+        "stages": [
+            {
+            "account": "sales-dev",
+            "cloudProvider": "kubernetes",
+            "manifestArtifactAccount": "embedded-artifact",
+            "manifests": [
+                {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "metadata": {
+                    "labels": {
+                    "app": "mcanary",
+                    "stack": "main"
+                    },
+                    "name": "mcanary-main",
+                    "namespace": "sales-dev"
+                },
+                "spec": {
+                    "replicas": "${#toInt(parameters.count)}",
+                    "selector": {
+                    "matchLabels": {
+                        "app": "mcanary",
+                        "stack": "main"
+                    }
+                    },
+                    "template": {
+                    "metadata": {
+                        "labels": {
+                        "app": "mcanary",
+                        "stack": "main"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                        {
+                            "image": "justinrlee/nginx:${parameters.tag}",
+                            "name": "primary",
+                            "ports": [
+                            {
+                                "containerPort": 80
+                            }
+                            ],
+                            "readinessProbe": {
+                            "httpGet": {
+                                "path": "/",
+                                "port": 80
+                            }
+                            }
+                        }
+                        ]
+                    }
+                    }
+                }
+                }
+            ],
+            "moniker": {
+                "app": "demo"
+            },
+            "name": "Deploy App",
+            "refId": "13",
+            "relationships": {
+                "loadBalancers": [],
+                "securityGroups": []
+            },
+            "requisiteStageRefIds": [],
+            "source": "text",
+            "type": "deployManifest"
+            },
+            {
+            "account": "sales-dev",
+            "cloudProvider": "kubernetes",
+            "manifestArtifactAccount": "embedded-artifact",
+            "manifests": [
+                {
+                "apiVersion": "v1",
+                "kind": "Service",
+                "metadata": {
+                    "name": "mcanary-service",
+                    "namespace": "sales-dev"
+                },
+                "spec": {
+                    "ports": [
+                    {
+                        "port": 80,
+                        "protocol": "TCP",
+                        "targetPort": 80
+                    }
+                    ],
+                    "selector": {
+                    "app": "mcanary"
+                    },
+                    "type": "LoadBalancer"
+                }
+                }
+            ],
+            "moniker": {
+                "app": "demo"
+            },
+            "name": "Deploy Service",
+            "refId": "14",
+            "relationships": {
+                "loadBalancers": [],
+                "securityGroups": []
+            },
+            "requisiteStageRefIds": [],
+            "source": "text",
+            "type": "deployManifest"
+            }
+        ],
+        "triggers": []
+      },
+      {
+        "application": "demo",
+        "name": "Kubernetes M Canary Setup [d]",
+        "appConfig": {},
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justinrlee",
+        "limitConcurrent": true,
+        "locked": {
+            "allowUnlockUi": true,
+            "ui": true
+        },
+        "parameterConfig": [
+            {
+            "default": "1",
+            "description": "How many canary instances would you like?",
+            "label": "Dev Instance Count",
+            "name": "canary",
+            "required": true
+            },
+            {
+            "default": "1",
+            "description": "How many baseline instances would you like?",
+            "label": "Prod Instance Count",
+            "name": "baseline",
+            "required": true
+            },
+            {
+            "default": "world",
+            "description": "What Docker image tag (for justinrlee/nginx) should we use?",
+            "label": "Docker Tag",
+            "name": "tag",
+            "required": true
+            }
+        ],
+        "stages": [
+            {
+            "account": "sales-dev",
+            "cloudProvider": "kubernetes",
+            "location": "sales-dev",
+            "manifestName": "deployment mcanary-main",
+            "name": "Get Current Version",
+            "refId": "1",
+            "requisiteStageRefIds": [],
+            "type": "findArtifactsFromResource"
+            },
+            {
+            "account": "sales-dev",
+            "cloudProvider": "kubernetes",
+            "kinds": [],
+            "labelSelectors": {
+                "selectors": []
+            },
+            "location": "",
+            "manifestArtifactAccount": "embedded-artifact",
+            "manifests": [
+                {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "metadata": {
+                    "labels": {
+                    "app": "mcanary",
+                    "stack": "baseline"
+                    },
+                    "name": "mcanary-baseline",
+                    "namespace": "sales-dev"
+                },
+                "spec": {
+                    "replicas": "${ #toInt( parameters.baseline ) }",
+                    "selector": {
+                    "matchLabels": {
+                        "app": "mcanary",
+                        "stack": "baseline"
+                    }
+                    },
+                    "template": {
+                    "metadata": {
+                        "labels": {
+                        "app": "mcanary",
+                        "stack": "baseline"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                        {
+                            "image": "${ #stage(\"Get Current Version\")[\"outputs\"][\"artifacts\"][0][\"reference\"]}",
+                            "name": "primary",
+                            "ports": [
+                            {
+                                "containerPort": 80
+                            }
+                            ],
+                            "readinessProbe": {
+                            "httpGet": {
+                                "path": "/",
+                                "port": 80
+                            }
+                            }
+                        }
+                        ]
+                    }
+                    }
+                }
+                }
+            ],
+            "moniker": {
+                "app": "demo"
+            },
+            "name": "Deploy Baseline",
+            "options": {
+                "cascading": true
+            },
+            "refId": "2",
+            "relationships": {
+                "loadBalancers": [],
+                "securityGroups": []
+            },
+            "requisiteStageRefIds": [
+                "1"
+            ],
+            "source": "text",
+            "type": "deployManifest"
+            },
+            {
+            "account": "sales-dev",
+            "cloudProvider": "kubernetes",
+            "manifestArtifactAccount": "embedded-artifact",
+            "manifests": [
+                {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "metadata": {
+                    "labels": {
+                    "app": "mcanary",
+                    "stack": "canary"
+                    },
+                    "name": "mcanary-canary",
+                    "namespace": "sales-dev"
+                },
+                "spec": {
+                    "replicas": "${ #toInt( parameters.canary ) }",
+                    "selector": {
+                    "matchLabels": {
+                        "app": "mcanary",
+                        "stack": "canary"
+                    }
+                    },
+                    "template": {
+                    "metadata": {
+                        "labels": {
+                        "app": "mcanary",
+                        "stack": "canary"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                        {
+                            "image": "justinrlee/nginx:${parameters.tag}",
+                            "name": "primary",
+                            "ports": [
+                            {
+                                "containerPort": 80
+                            }
+                            ],
+                            "readinessProbe": {
+                            "httpGet": {
+                                "path": "/",
+                                "port": 80
+                            }
+                            }
+                        }
+                        ]
+                    }
+                    }
+                }
+                }
+            ],
+            "moniker": {
+                "app": "demo"
+            },
+            "name": "Deploy Canary",
+            "refId": "3",
+            "relationships": {
+                "loadBalancers": [],
+                "securityGroups": []
+            },
+            "requisiteStageRefIds": [
+                "1"
+            ],
+            "source": "text",
+            "type": "deployManifest"
+            },
+            {
+            "name": "Gather",
+            "refId": "4",
+            "requisiteStageRefIds": [
+                "2",
+                "3"
+            ],
+            "type": "wait",
+            "waitTime": 30
+            },
+            {
+            "name": "Wait",
+            "refId": "5",
+            "requisiteStageRefIds": [
+                "4"
+            ],
+            "type": "wait",
+            "waitTime": 30
+            },
+            {
+            "name": "Jenkins: Run Performance Test",
+            "refId": "6",
+            "requisiteStageRefIds": [
+                "4"
+            ],
+            "type": "wait",
+            "waitTime": 30
+            },
+            {
+            "name": "Canary Analysis",
+            "refId": "7",
+            "requisiteStageRefIds": [
+                "4"
+            ],
+            "type": "wait",
+            "waitTime": 30
+            },
+            {
+            "name": "Webhook: Run External Test",
+            "refId": "8",
+            "requisiteStageRefIds": [
+                "4"
+            ],
+            "statusUrlResolution": "getMethod",
+            "type": "wait",
+            "waitTime": 30
+            },
+            {
+            "name": "Jenkins: Run Integration Test",
+            "refId": "9",
+            "requisiteStageRefIds": [
+                "4"
+            ],
+            "type": "wait",
+            "waitTime": 30
+            },
+            {
+            "completeOtherBranchesThenFail": false,
+            "continuePipeline": true,
+            "failPipeline": false,
+            "instructions": "Do you want to promote?",
+            "judgmentInputs": [
+                {
+                "value": "Yes"
+                },
+                {
+                "value": "No"
+                }
+            ],
+            "name": "Manual Judgment",
+            "notifications": [],
+            "refId": "10",
+            "requisiteStageRefIds": [
+                "7",
+                "6",
+                "8",
+                "9",
+                "5"
+            ],
+            "type": "manualJudgment"
+            },
+            {
+            "account": "sales-dev",
+            "cloudProvider": "kubernetes",
+            "kinds": [],
+            "location": "sales-dev",
+            "manifestName": "deployment mcanary-baseline",
+            "name": "Destroy Baseline",
+            "options": {
+                "cascading": true
+            },
+            "refId": "11",
+            "requisiteStageRefIds": [
+                "10"
+            ],
+            "type": "deleteManifest"
+            },
+            {
+            "account": "sales-dev",
+            "cloudProvider": "kubernetes",
+            "kinds": [],
+            "labelSelectors": {
+                "selectors": []
+            },
+            "location": "sales-dev",
+            "manifestName": "deployment mcanary-canary",
+            "name": "Destroy Canary",
+            "options": {
+                "cascading": true
+            },
+            "refId": "12",
+            "requisiteStageRefIds": [
+                "10"
+            ],
+            "type": "deleteManifest"
+            },
+            {
+            "account": "sales-dev",
+            "cloudProvider": "kubernetes",
+            "manifestArtifactAccount": "embedded-artifact",
+            "manifests": [
+                {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "metadata": {
+                    "labels": {
+                    "app": "mcanary",
+                    "stack": "main"
+                    },
+                    "name": "mcanary-main",
+                    "namespace": "sales-dev"
+                },
+                "spec": {
+                    "replicas": "${ #stage(\"Get Current Version\")[\"outputs\"][\"manifest\"][\"spec\"][\"replicas\"]}",
+                    "selector": {
+                    "matchLabels": {
+                        "app": "mcanary",
+                        "stack": "main"
+                    }
+                    },
+                    "template": {
+                    "metadata": {
+                        "labels": {
+                        "app": "mcanary",
+                        "stack": "main"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                        {
+                            "image": "justinrlee/nginx:${parameters.tag}",
+                            "name": "primary",
+                            "ports": [
+                            {
+                                "containerPort": 80
+                            }
+                            ],
+                            "readinessProbe": {
+                            "httpGet": {
+                                "path": "/",
+                                "port": 80
+                            }
+                            }
+                        }
+                        ]
+                    }
+                    }
+                }
+                }
+            ],
+            "moniker": {
+                "app": "demo"
+            },
+            "name": "Promote App",
+            "refId": "13",
+            "relationships": {
+                "loadBalancers": [],
+                "securityGroups": []
+            },
+            "requisiteStageRefIds": [
+                "10"
+            ],
+            "source": "text",
+            "stageEnabled": {
+                "expression": "${#judgment(\"Manual Judgment\") == \"Yes\"}",
+                "type": "expression"
+            },
+            "type": "deployManifest"
+            }
+        ],
+        "triggers": []
+      }
+    ]
+}
