@@ -3,7 +3,7 @@
     "pipelines": [
       {
         "application": "demo",
-        "name": "Kubernetes Blue Green Setup [d]",
+        "name": "Kubernetes Blue Green Setup [D]",
         "appConfig": {},
         "disabled": true,
         "keepWaitingPipelines": false,
@@ -145,7 +145,7 @@
       },
       {
         "application": "demo",
-        "name": "Kubernetes Blue Green Deployment [d]",
+        "name": "Kubernetes Blue Green Deployment [D]",
         "keepWaitingPipelines": false,
         "lastModifiedBy": "justinrlee",
         "limitConcurrent": true,
