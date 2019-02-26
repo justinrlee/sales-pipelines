@@ -19,7 +19,7 @@
             },
             {
             "default": "world",
-            "description": "What Docker image tag (for justinrlee/nginx) should we use?",
+            "description": "What Docker image tag (for image justinrlee/nginx) should we use?",
             "label": "Docker Tag",
             "name": "tag",
             "required": true
