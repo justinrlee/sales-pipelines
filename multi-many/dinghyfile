@@ -5,7 +5,7 @@
         "application": "multi-many",
         "name": "Two Stage - A",
         "appConfig": {},
-        "description": "This is managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
+        "description": "This is managed by dinghy hello world.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
         "expectedArtifacts": [
             {{ module "artifact.github.module"
                "id" "multi-many-a-dev"
