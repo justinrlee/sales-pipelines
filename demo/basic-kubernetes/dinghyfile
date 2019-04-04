@@ -10,7 +10,7 @@
         "lastModifiedBy": "justinrlee",
         "limitConcurrent": true,
         "locked": {
-            "allowUnlockUi": true,
+            "allowUnlockUi": false,
             "ui": true
         },
         "parameterConfig": [
