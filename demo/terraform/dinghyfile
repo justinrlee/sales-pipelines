@@ -101,7 +101,7 @@
               "reference": "https://api.github.com/repos/armory-io/demo-api/contents/terraform/environments/demo/backend.tfvars",
               "type": "github/file"
             },
-            "comments": "View the Plan output <a href=\"https://gate.sales.armory.io/proxies/terraform/api/v1/job/${#stage('Plan: Create Environment')['context']['status']['id']}/logs\">here</a>",
+            "comments": "View the plan output <a href=\"https://gate.sales.armory.io/proxies/terraform/api/v1/job/${#stage('Plan: Create Environment')['context']['status']['id']}/logs\">here</a>",
             "dir": "terraform/environments/demo",
             "name": "Plan: Create Environment",
             "overrides": {
