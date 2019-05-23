@@ -1,0 +1,40 @@
+{
+    "application": "kubernetesdemo",
+    "pipelines": [
+    {
+        "application": "kubernetesdemo",
+        "name": "empty",
+        "appConfig": {},
+        "description": "This is helloworld managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
+        "parameterConfig": [{
+                "default": "2",
+                "description": "How many dev instances would you like?",
+                "label": "Dev Instance Count",
+                "name": "devcount",
+                "required": true
+            },
+            {
+                "default": "4",
+                "description": "How many prod instances would you like?",
+                "label": "Prod Instance Count",
+                "name": "prodcount",
+                "required": true
+            },
+            {
+                "default": "world",
+                "description": "What Docker image tag (for justinrlee/nginx) should we use?",
+                "label": "Docker Tag",
+                "name": "tag",
+                "required": true
+            }
+        ],
+        "keepWaitingPipelines": false,
+        "lastModifiedBy": "justin.lee@armory.io",
+        "limitConcurrent": true,
+        "stages": [
+            {{ module "manual.judgment.module" "refId" "2" "requisiteStageRefIds" ["1"] }}
+        ],
+        "triggers": []
+    }
+    ]
+}
