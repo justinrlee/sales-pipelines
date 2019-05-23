@@ -8,7 +8,7 @@
         "description": "This is helloworld managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
         "locked": {
             "allowUnlockUi": false,
-            "ui": "true"
+            "ui": true
         },
         "parameterConfig": [{
                 "default": "2",
@@ -227,7 +227,7 @@
         ],
         "locked": {
             "allowUnlockUi": false,
-            "ui": "true"
+            "ui": true
         },
         "parameterConfig": [{
                 "default": "2",
@@ -451,7 +451,7 @@
         "description": "This is owned by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
         "locked": {
             "allowUnlockUi": false,
-            "ui": "true"
+            "ui": true
         },
         "parameterConfig": [{
                 "default": "2",
@@ -658,7 +658,7 @@
         "description": "This is managed by dinghy.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
         "locked": {
             "allowUnlockUi": false,
-            "ui": "true"
+            "ui": true
         },
         "parameterConfig": [{
                 "default": "2",
