@@ -50,7 +50,7 @@
         "lastModifiedBy": "justinrlee",
         "limitConcurrent": true,
         "locked": {
-          "allowUnlockUi": false,
+          "allowUnlockUi": true,
           "ui": true
         },
         "parameterConfig": [
@@ -341,7 +341,7 @@
         "lastModifiedBy": "justinrlee",
         "limitConcurrent": true,
         "locked": {
-            "allowUnlockUi": false,
+            "allowUnlockUi": true,
             "ui": true
         },
         "parameterConfig": [
