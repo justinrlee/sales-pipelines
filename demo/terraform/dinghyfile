@@ -5,7 +5,7 @@
         "application": "demo",
         "name": "Terraform Demo [D]",
         "appConfig": {},
-        "description": "This pipeline demos Terraform with an app that consumes a created S3 bucket",
+        "description": "This pipeline demos Terraform with an app that consumes a created S3 bucket.",
         "expectedArtifacts": [
           {
             "defaultArtifact": {
