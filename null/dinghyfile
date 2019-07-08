@@ -1,6 +1,6 @@
 {
   "spec": {
-      "email": "justin.r.lee@gmail.com",
+      "email": "justin.lee@armory.io",
       "dataSources": {
         "enabled": ["canaryConfigs"],
         "disabled": []
