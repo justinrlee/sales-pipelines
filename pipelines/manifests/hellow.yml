@@ -16,5 +16,5 @@ spec:
         app: hellow
     spec:
       containers:
-        - image: 'justinrlee/nginx:latest'
+        - image: 'justinrlee/nginx:${parameters.tag}'
           name: primary
