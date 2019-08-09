@@ -4,7 +4,7 @@ metadata:
   labels:
     app: '${#stage("Customize")["outputs"]["app"]}'
   name: '${#stage("Customize")["outputs"]["app"]}'
-  namespace: sales-dev
+  namespace: default
 spec:
   replicas: 2
   selector:
