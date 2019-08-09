@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-hello
+  name: nginx-hello
+  namespace: sales-prod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-hello
+  template:
+    metadata:
+      labels:
+        app: nginx-hello
+    spec:
+      containers:
+        - image: 'justinrlee/nginx-hello:${parameters.tag}'
+          name: primary
