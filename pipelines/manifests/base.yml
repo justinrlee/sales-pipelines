@@ -2,19 +2,19 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: "${app}"
-  name: "${app}"
+    app: '${app}'
+  name: '${app}'
   namespace: default
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: "${app}"
+      app: '${app}'
   template:
     metadata:
       labels:
-        app: "${app}"
+        app: '${app}'
     spec:
       containers:
-        - image: '${image}:${parameters.tag}'
+        - image: 'justinrlee/nginx:monday'
           name: primary
