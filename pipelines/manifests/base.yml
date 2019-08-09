@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: '${app}'
+    app: '${#stage("EV")["outputs"]["app"]}'
   name: '${app}'
   namespace: sales-dev
 spec:
