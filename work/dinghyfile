@@ -3,6 +3,7 @@
 	"pipelines": [{
 		"name": "Terraform Helm Dinghy",
 		"appConfig": {},
+		"description": "test",
 		"expectedArtifacts": [{
 				"defaultArtifact": {
 					"id": "ad25daac-fdfc-4877-8121-4f8ffc8d4720",
