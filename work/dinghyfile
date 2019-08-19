@@ -1,6 +1,7 @@
 {
 	"application": "work",
 	"pipelines": [{
+		"application": "work",
 		"name": "Terraform Helm Dinghy",
 		"appConfig": {},
 		"description": "test",
