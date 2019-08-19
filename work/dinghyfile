@@ -5,26 +5,12 @@
 		"name": "Terraform Helm Dinghy",
 		"appConfig": {},
 		"description": "test",
-		"expectedArtifacts": [{
-				"defaultArtifact": {
-					"id": "ad25daac-fdfc-4877-8121-4f8ffc8d4720",
-					"kind": "default.github",
-					"name": "deployment/deployment.yml",
-					"reference": "https://api.github.com/repos/armory-io/demo-api/contents/deployment/deployment.yml",
-					"type": "github/file",
-					"version": "master"
-				},
-				"displayName": "deployment/deployment.yml",
-				"id": "f5280bb8-c30f-43cb-8b80-9ea5ee896dc4",
-				"matchArtifact": {
-					"id": "82d0afb0-2d0d-40c5-93fd-d8ad8a1332e4",
-					"kind": "github",
-					"name": "deployment/deployment.yml",
-					"type": "github/file"
-				},
-				"useDefaultArtifact": true,
-				"usePriorArtifact": false
-			},
+		"expectedArtifacts": 
+	    {{ module "artifact.github.module"
+               "id" "ad25daac-fdfc-4877-8121-4f8ffc8d4720"
+               "repo" "armory-io/demo-api"
+               "path" "deployment/deployment.yml"
+            }},
 			{
 				"defaultArtifact": {
 					"id": "db0e4356-da84-4196-9993-cfe2f7f1aef1",
