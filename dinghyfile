@@ -6,6 +6,10 @@
       "description": "hello world aa",
       "name": "d-work",
       "lastModifiedBy": "justinrlee",
+      "locked": {
+        "allowUnlockUi": false,
+        "ui": true
+      },
       "stages": [
         {
           "isNew": true,
