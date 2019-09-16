@@ -4,6 +4,7 @@
       {
         "application": "demo",
         "name": "Kubernetes M Canary Setup [D]",
+        "description": "This is used to set up the infra for canary",
         "appConfig": {},
         "disabled": true,
         "locked": {
