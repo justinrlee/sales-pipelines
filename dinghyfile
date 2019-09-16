@@ -9,7 +9,7 @@
       "lastModifiedBy": "justinrlee",
       "locked": {
         "allowUnlockUi": false,
-        "ui": true
+        "ui": false
       },
       "stages": [
         {
