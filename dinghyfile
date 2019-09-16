@@ -1,0 +1,20 @@
+{
+  "application": "work",
+  "pipelines": [
+    {
+      "application": "work",
+      "name": "d-work",
+      "lastModifiedBy": "justinrlee",
+      "stages": [
+        {
+          "isNew": true,
+          "name": "Wait",
+          "refId": "1",
+          "requisiteStageRefIds": [],
+          "type": "wait",
+          "waitTime": 30
+        }
+      ]
+    }
+  ]
+}
