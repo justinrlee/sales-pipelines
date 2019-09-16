@@ -5,10 +5,11 @@
     {
       "application": "work",
       "description": "hello world aa",
+      "autoLockPipelines": false,
       "name": "d-work",
       "lastModifiedBy": "justinrlee",
       "locked": {
-        "allowUnlockUi": false,
+        "allowUnlockUi": true,
         "ui": false
       },
       "stages": [
