@@ -1,6 +1,5 @@
 {
   "application": "work",
-  "autoLockPipelines": false,
   "pipelines": [
     {
       "application": "work",
