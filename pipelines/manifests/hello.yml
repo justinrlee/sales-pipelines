@@ -1,0 +1,21 @@
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: hellow
+  name: hellow
+  namespace: sales-prod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hellow
+  template:
+    metadata:
+      labels:
+        app: hellow
+    spec:
+      containers:
+        - image: 'justinrlee/nginx:monday'
+          name: primary
