@@ -17,5 +17,5 @@ spec:
         app: hellow
     spec:
       containers:
-        - image: 'justinrlee/nginx:monday'
+        - image: 'justinrlee/nginx'
           name: primary
