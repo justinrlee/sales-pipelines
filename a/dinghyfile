@@ -1,0 +1,49 @@
+{
+    "application": "a",
+    "pipelines": [
+    {
+        "application": "a",
+        "name": "Two Stage - A",
+        "appConfig": {},
+        "description": "This is managed by dinghy hello world.  This pipeline demonstrates a simple two-environment deployment using the v2 Kubernetes provider, with a manual judgment in between.",
+        "expectedArtifacts": [
+            {{ module "artifact.github.module"
+               "id" "dev-artifact"
+               "repo" "justinrlee/sales-pipelines"
+               "path" "multi-template/manifests/dev.yml"
+            }}
+        ],
+        "locked": {
+            "allowUnlockUi": false,
+            "ui": "true"
+        },
+        "parameterConfig": [{
+                "default": "2",
+                "description": "How many dev instances would you like?",
+                "label": "Dev Instance Count",
+                "name": "devcount",
+                "required": true
+            },
+            {
+                "default": "world",
+                "description": "What Docker image tag (for justinrlee/nginx) should we use?",
+                "label": "Docker Tag",
+                "name": "tag",
+                "required": true
+            }
+        ],
+        "lastModifiedBy": "justin.lee@armory.io",
+        "stages": [
+            {{ module "stage.manifest.from.artifact"
+               "name" "Deploy Dev"
+               "account" "sales-dev"
+               "artifactId" "dev-artifact"
+               "moniker" "a"
+               "refId" "1"
+               "requisiteStageRefIds" []
+            }}
+        ],
+        "triggers": []
+    }
+    ]
+}
