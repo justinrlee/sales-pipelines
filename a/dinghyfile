@@ -14,8 +14,8 @@
             }}
         ],
         "locked": {
-            "allowUnlockUi": false,
-            "ui": true
+            "allowUnlockUi": "false",
+            "ui": "true"
         },
         "parameterConfig": [{
                 "default": "2",
