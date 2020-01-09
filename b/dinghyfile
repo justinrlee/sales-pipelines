@@ -1,8 +1,8 @@
 {
-    "application": "test",
+    "application": "helloworld123",
     "pipelines": [
     {
-        "application": "test",
+        "application": "helloworld123",
         "name": "test-asdfa",
         "stages": [
             {{ module "stage.manifest.from.artifact"
