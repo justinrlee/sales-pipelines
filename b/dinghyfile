@@ -3,7 +3,7 @@
     "pipelines": [
     {
         "application": "test",
-        "name": "test-asdf",
+        "name": "test-asdfa",
         "stages": [
             {{ module "stage.manifest.from.artifact"
                "name" "Deploy Dev"
