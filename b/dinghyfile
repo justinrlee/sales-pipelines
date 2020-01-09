@@ -10,7 +10,7 @@
                "account" "sales-dev"
                "artifactId" "dev-artifact"
                "moniker" "a"
-               "refId" "2"
+               "refId" "3"
                "requisiteStageRefIds" []
             }}
         ],
