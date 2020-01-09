@@ -1,9 +1,9 @@
 {
-    "application": "b",
+    "application": "test",
     "pipelines": [
     {
-        "application": "b",
-        "name": "test",
+        "application": "test",
+        "name": "test-asdf",
         "stages": [
             {{ module "stage.manifest.from.artifact"
                "name" "Deploy Dev"
