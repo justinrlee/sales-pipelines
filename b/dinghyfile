@@ -3,7 +3,7 @@
     "pipelines": [
     {
         "application": "helloworld123",
-        "name": "test-hello",
+        "name": "test-hello-chao",
         "stages": [
             {{ module "stage.manifest.from.artifact"
                "name" "Deploy Dev"
