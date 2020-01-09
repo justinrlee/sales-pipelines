@@ -63,7 +63,7 @@
                "refId" "1"
                "requisiteStageRefIds" []
             }},
-            {{ module "manual.judgment.module" "refId" "2" "requisiteStageRefIds" ["1"] }},
+            {{ module "test/module.fun" "refId" "2" "requisiteStageRefIds" ["1"] }},
             {{ module "stage.manifest.from.artifact"
                "name" "Deploy Prod"
                "account" "sales-prod"
