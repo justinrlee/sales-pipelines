@@ -1,0 +1,21 @@
+{
+    "application": "b",
+    "pipelines": [
+    {
+        "application": "b",
+        "name": "test",
+        "stages": [
+            {{ module "stage.manifest.from.artifact"
+               "name" "Deploy Dev"
+               "account" "sales-dev"
+               "artifactId" "dev-artifact"
+               "moniker" "a"
+               "refId" "1"
+               "requisiteStageRefIds" []
+            }}
+        ],
+        "triggers": []
+        
+    }
+    ]
+}
