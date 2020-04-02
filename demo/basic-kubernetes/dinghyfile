@@ -16,7 +16,7 @@
         "parameterConfig": [
             {
             "default": "2",
-            "description": "How many dev instances would you like Telemachus?",
+            "description": "How many dev instances would you like Telemachus Luu?",
             "label": "Dev Instance Count",
             "name": "devcount",
             "required": true
