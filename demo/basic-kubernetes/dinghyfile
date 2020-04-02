@@ -5,7 +5,7 @@
         "application": "demo",
         "name": "Kubernetes Promotion [D]",
         "appConfig": {},
-        "description": "Welcome Telemachus from Armory.",
+        "description": "Welcome Telemachus Luu.",
         "keepWaitingPipelines": false,
         "lastModifiedBy": "justinrlee",
         "limitConcurrent": true,
@@ -16,14 +16,14 @@
         "parameterConfig": [
             {
             "default": "2",
-            "description": "How many dev instances would you like Telemachus?",
+            "description": "How many dev instances would you like?",
             "label": "Dev Instance Count",
             "name": "devcount",
             "required": true
             },
             {
             "default": "4",
-            "description": "How many prod instances would you like Telemachus?",
+            "description": "How many prod instances would you like?",
             "label": "Prod Instance Count",
             "name": "prodcount",
             "required": true
