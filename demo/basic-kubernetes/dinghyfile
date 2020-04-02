@@ -5,7 +5,7 @@
         "application": "demo",
         "name": "Kubernetes Promotion [D]",
         "appConfig": {},
-        "description": "Welcome to Spinnaker.",
+        "description": "Welcome Telemachus.",
         "keepWaitingPipelines": false,
         "lastModifiedBy": "justinrlee",
         "limitConcurrent": true,
