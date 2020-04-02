@@ -16,14 +16,14 @@
         "parameterConfig": [
             {
             "default": "2",
-            "description": "How many dev instances would you like?",
+            "description": "How many dev instances would you like Telemachus?",
             "label": "Dev Instance Count",
             "name": "devcount",
             "required": true
             },
             {
             "default": "4",
-            "description": "How many prod instances would you like?",
+            "description": "How many prod instances would you like Telemachus?",
             "label": "Prod Instance Count",
             "name": "prodcount",
             "required": true
