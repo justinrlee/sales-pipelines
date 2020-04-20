@@ -5,7 +5,7 @@
         "application": "demo",
         "name": "Kubernetes Promotion [D]",
         "appConfig": {},
-        "description": "Welcome Telemachus.",
+        "description": "Welcome Telemachus Luu 4/20.",
         "keepWaitingPipelines": false,
         "lastModifiedBy": "justinrlee",
         "limitConcurrent": true,
