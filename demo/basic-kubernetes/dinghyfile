@@ -5,7 +5,7 @@
         "application": "demo",
         "name": "Kubernetes Promotion [D]",
         "appConfig": {},
-        "description": "Welcome Emirates 5/25.",
+        "description": "Welcome Emirates 5/27.",
         "keepWaitingPipelines": false,
         "lastModifiedBy": "justinrlee",
         "limitConcurrent": true,
