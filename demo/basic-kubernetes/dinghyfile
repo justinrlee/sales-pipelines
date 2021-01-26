@@ -129,7 +129,7 @@
             },
             {
             "failPipeline": true,
-            "instructions": "Does dev look okay?",
+            "instructions": "Does dev look okay, you sure?",
             "judgmentInputs": [],
             "name": "Manual Judgment",
             "notifications": [],
